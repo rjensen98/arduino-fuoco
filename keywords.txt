@@ -1,0 +1,2 @@
+ZoneSetting	KEYWORD1
+getTemperature	KEYWORD2
