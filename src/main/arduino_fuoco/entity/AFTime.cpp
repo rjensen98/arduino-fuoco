@@ -15,7 +15,7 @@ namespace ArduinoFuoco
     {
     }
 
-    AFTime::AFTime(byte hour, byte minute, bool is_pm)
+    AFTime::AFTime(const byte hour, const byte minute, const bool is_pm)
         : _hour(hour), _minute(minute), _is_pm(is_pm)
     {
     }

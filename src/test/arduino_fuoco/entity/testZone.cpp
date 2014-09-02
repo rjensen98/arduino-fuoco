@@ -9,9 +9,6 @@ using namespace ArduinoFuoco::Enums;
 
 SUITE(TestZone)
 {
-  //TODO: these work when commenting out the arduino calls in Zone.cpp (Serial.print, digitalWrite, etc.)
-  //      need to figure out the reason for the include errors in this test library
-/*
 
   TEST(getZoneSettings)
   {
@@ -63,5 +60,5 @@ SUITE(TestZone)
     CHECK_EQUAL(HeatingInterval::WKDAY_RETURN, zs->getInterval());
     CHECK_EQUAL(newTemp, zs->getSetTemperature());
   }
-*/
+
 }

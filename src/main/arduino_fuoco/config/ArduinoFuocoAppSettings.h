@@ -9,7 +9,7 @@ const int HYSTERESIS = 0;
 
 
 // Set debug mode: 1 = on; 0 = off
-#define AF_DEBUG 1
+#define AF_DEBUG 0
 
 
 // if in debug mode, include Arduino.h for Serial output & printing
