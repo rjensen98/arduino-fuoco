@@ -3,9 +3,9 @@
   <Project Name="arduino_fuoco" Path="arduino_fuoco.project" Active="No"/>
   <Project Name="unit_testing" Path="unit_testing.project" Active="Yes"/>
   <BuildMatrix>
-    <WorkspaceConfiguration Name="Debug" Selected="yes">
+    <WorkspaceConfiguration Name="Debug" Selected="no">
       <Project Name="arduino_fuoco" ConfigName="Debug"/>
-      <Project Name="unit_testing" ConfigName="Release"/>
+      <Project Name="unit_testing" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Project Name="arduino_fuoco" ConfigName="Release"/>

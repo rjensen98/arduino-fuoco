@@ -2,12 +2,12 @@
 ## Auto Generated makefile by CodeLite IDE
 ## any manual changes will be erased      
 ##
-## Debug
+## Release
 ProjectName            :=arduino_fuoco
-ConfigurationName      :=Debug
+ConfigurationName      :=Release
 WorkspacePath          := "C:\dev\arduino-fuoco"
 ProjectPath            := "C:\dev\arduino-fuoco"
-IntermediateDirectory  :=./Debug
+IntermediateDirectory  :=./Release
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
@@ -38,7 +38,7 @@ MakeDirCommand         :=makedir
 RcCmpOptions           := 
 RcCompilerName         :="C:/apps/MinGW-4.8.1/bin/windres.exe" 
 LinkOptions            :=  
-IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch)$(IntermediateDirectory)/../include/ $(IncludeSwitch)$(IntermediateDirectory)/../src/main/arduino_fuoco/entity/ $(IncludeSwitch)$(IntermediateDirectory)/../src/main/arduino_fuoco/enums/ $(IncludeSwitch)$(IntermediateDirectory)/../src/main/arduino_fuoco/config $(IncludeSwitch)$(IntermediateDirectory)/../src/main/arduino_fuoco/controllers/ $(IncludeSwitch). 
+IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch)$(IntermediateDirectory)/../include/ $(IncludeSwitch)$(IntermediateDirectory)/../src/main/arduino_fuoco/entity/ $(IncludeSwitch)$(IntermediateDirectory)/../src/main/arduino_fuoco/enums/ $(IncludeSwitch)$(IntermediateDirectory)/../src/main/arduino_fuoco/config $(IncludeSwitch)$(IntermediateDirectory)/../src/main/arduino_fuoco/controllers/ $(IncludeSwitch)$(IntermediateDirectory)/../src/main/arduino_fuoco/utility/ $(IncludeSwitch). 
 IncludePCH             := 
 RcIncludePath          := 
 Libs                   := 
@@ -52,8 +52,8 @@ LibPath                := $(LibraryPathSwitch).
 AR       := "C:/apps/MinGW-4.8.1/bin/ar.exe" rcu
 CXX      := "C:/apps/MinGW-4.8.1/bin/g++.exe" 
 CC       := "C:/apps/MinGW-4.8.1/bin/gcc.exe" 
-CXXFLAGS :=  -g $(Preprocessors)
-CFLAGS   :=  -g $(Preprocessors)
+CXXFLAGS :=   $(Preprocessors)
+CFLAGS   :=   $(Preprocessors)
 ASFLAGS  := 
 AS       := "C:/apps/MinGW-4.8.1/bin/as.exe" 
 
@@ -63,7 +63,7 @@ AS       := "C:/apps/MinGW-4.8.1/bin/as.exe"
 ##
 CodeLiteDir:=C:\apps\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:/apps/UnitTest++-1.3
-Objects0=$(IntermediateDirectory)/include_Arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_ZoneSetting.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_TimeDefinition.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_AFTime.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/include_Arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_ZoneSetting.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_TimeDefinition.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_AFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) 
 
 
 
@@ -80,16 +80,17 @@ $(OutputFile): $(Objects)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects0)  > $(ObjectsFileList)
 	$(AR) $(ArchiveOutputSwitch)$(OutputFile) @$(ObjectsFileList) $(ArLibs)
-	@$(MakeDirCommand) "C:\dev\arduino-fuoco/.build-debug"
-	@echo rebuilt > "C:\dev\arduino-fuoco/.build-debug/arduino_fuoco"
+	@$(MakeDirCommand) "C:\dev\arduino-fuoco/.build-release"
+	@echo rebuilt > "C:\dev\arduino-fuoco/.build-release/arduino_fuoco"
 
 PostBuild:
 	@echo Executing Post Build commands ...
 	$(WorkspacePath)\arduino_fuoco_postbuild.bat
+	copy .\Release\libarduino_fuoco.a .\arduino_files
 	@echo Done
 
-./Debug:
-	@$(MakeDirCommand) "./Debug"
+./Release:
+	@$(MakeDirCommand) "./Release"
 
 PreBuild:
 
@@ -145,16 +146,24 @@ $(IntermediateDirectory)/entity_AFTime.cpp$(DependSuffix): src/main/arduino_fuoc
 $(IntermediateDirectory)/entity_AFTime.cpp$(PreprocessSuffix): src/main/arduino_fuoco/entity/AFTime.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/entity_AFTime.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/entity/AFTime.cpp"
 
+$(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix): src/main/arduino_fuoco/utility/StringHelper.cpp $(IntermediateDirectory)/utility_StringHelper.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/utility/StringHelper.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/utility_StringHelper.cpp$(DependSuffix): src/main/arduino_fuoco/utility/StringHelper.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/utility_StringHelper.cpp$(DependSuffix) -MM "src/main/arduino_fuoco/utility/StringHelper.cpp"
+
+$(IntermediateDirectory)/utility_StringHelper.cpp$(PreprocessSuffix): src/main/arduino_fuoco/utility/StringHelper.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/utility_StringHelper.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/utility/StringHelper.cpp"
+
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
 ##
 ## Clean
 ##
 clean:
-	$(RM) ./Debug/*$(ObjectSuffix)
-	$(RM) ./Debug/*$(DependSuffix)
+	$(RM) ./Release/*$(ObjectSuffix)
+	$(RM) ./Release/*$(DependSuffix)
 	$(RM) $(OutputFile)
 	$(RM) $(OutputFile)
-	$(RM) ".build-debug/arduino_fuoco"
+	$(RM) ".build-release/arduino_fuoco"
 
 

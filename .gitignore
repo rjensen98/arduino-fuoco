@@ -1,5 +1,6 @@
 # ignore these directories
 .build-debug
+.build-release
 .codelite
 Release
 Debug

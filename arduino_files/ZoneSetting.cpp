@@ -1,33 +1,42 @@
-#include <HeatingInterval.h>
 #include "ZoneSetting.h"
+#include <HeatingInterval.h>
 
-ArduinoFuoco::Entity::ZoneSetting::ZoneSetting()
+namespace ArduinoFuoco
 {
-  _heatingInterval = ArduinoFuoco::Enums::HeatingInterval::WKDAY_WAKE;
-  _temperature = 0;
-}
 
-ArduinoFuoco::Entity::ZoneSetting::ZoneSetting(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval, const byte &temperature)
-    : _heatingInterval(interval), _temperature(temperature)
-{
-}
+  namespace Entity
+  {
 
-byte ArduinoFuoco::Entity::ZoneSetting::getSetTemperature()
-{
-  return _temperature;
-}
+    ZoneSetting::ZoneSetting()
+    {
+      _heatingInterval = ArduinoFuoco::Enums::HeatingInterval::WKDAY_WAKE;
+      _temperature = 0;
+    }
 
-void ArduinoFuoco::Entity::ZoneSetting::setSetTemperature(const byte temperature)
-{
-  _temperature = temperature;
-}
+    ZoneSetting::ZoneSetting(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval, const byte &temperature)
+        : _heatingInterval(interval), _temperature(temperature)
+    {
+    }
 
-ArduinoFuoco::Enums::HeatingInterval::Enum ArduinoFuoco::Entity::ZoneSetting::getInterval()
-{
-  return _heatingInterval;
-}
+    byte ZoneSetting::getSetTemperature()
+    {
+      return _temperature;
+    }
 
-void ArduinoFuoco::Entity::ZoneSetting::setInterval(const ArduinoFuoco::Enums::HeatingInterval::Enum interval)
-{
-  _heatingInterval = interval;
+    void ZoneSetting::setSetTemperature(const byte temperature)
+    {
+      _temperature = temperature;
+    }
+
+    ArduinoFuoco::Enums::HeatingInterval::Enum ZoneSetting::getInterval()
+    {
+      return _heatingInterval;
+    }
+
+    void ZoneSetting::setInterval(const ArduinoFuoco::Enums::HeatingInterval::Enum interval)
+    {
+      _heatingInterval = interval;
+    }
+
+  }
 }

@@ -61,12 +61,14 @@ namespace ArduinoFuoco
 
     TimeDefinition* HeatController::getTimeDefinitions()
     {
+      //TODO: implement this!!!
       TimeDefinition* junk = 0;
       return junk;
     }
 
     HeatingInterval::Enum HeatController::getCurrentInterval()
     {
+      //TODO: implement this!!!
       return HeatingInterval::WKDAY_WAKE;
     }
 

@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=RJensen
-Date                   :=09/01/14
+Date                   :=09/02/14
 CodeLitePath           :="C:\apps\CodeLite"
 LinkerName             :="C:/apps/MinGW-4.8.1/bin/g++.exe" 
 SharedObjectLinkerName :="C:/apps/MinGW-4.8.1/bin/g++.exe" -shared -fPIC
@@ -38,12 +38,12 @@ MakeDirCommand         :=makedir
 RcCmpOptions           := 
 RcCompilerName         :="C:/apps/MinGW-4.8.1/bin/windres.exe" 
 LinkOptions            :=  -O2
-IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). $(IncludeSwitch)$(UNIT_TEST_PP_SRC_DIR)/src 
+IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch)$(WorkspacePath)/arduino_files $(IncludeSwitch). $(IncludeSwitch)$(UNIT_TEST_PP_SRC_DIR)/src $(IncludeSwitch)$(WorkspacePath)/arduino_files 
 IncludePCH             := 
 RcIncludePath          := 
-Libs                   := $(LibrarySwitch)UnitTest++ 
-ArLibs                 :=  "libUnitTest++.a" 
-LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)$(UNIT_TEST_PP_SRC_DIR)/Release 
+Libs                   := $(LibrarySwitch)UnitTest++ $(LibrarySwitch)arduino_fuoco 
+ArLibs                 :=  "libUnitTest++.a" "libarduino_fuoco.a" 
+LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)$(UNIT_TEST_PP_SRC_DIR)/Release $(LibraryPathSwitch)$(WorkspacePath)/arduino_files 
 
 ##
 ## Common variables
@@ -63,8 +63,8 @@ AS       := "C:/apps/MinGW-4.8.1/bin/as.exe"
 ##
 CodeLiteDir:=C:\apps\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:/apps/UnitTest++-1.3
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_AssertException.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_Checks.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_DeferredTestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_DeferredTestResult.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_MemoryOutStream.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_ReportAssert.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_Test.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestDetails.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestList.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/test_includes_TestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestReporterStdout.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestResults.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestRunner.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TimeConstraint.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_XmlTestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_testAFTime.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/test_main.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_AssertException.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_Checks.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_DeferredTestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_DeferredTestResult.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_MemoryOutStream.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_ReportAssert.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_Test.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestDetails.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestList.cpp$(ObjectSuffix) \
+	$(IntermediateDirectory)/test_includes_TestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestReporterStdout.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestResults.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestRunner.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TimeConstraint.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_XmlTestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_testAFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_testStringHelper.cpp$(ObjectSuffix) 
 
 
 
@@ -76,18 +76,11 @@ Objects=$(Objects0)
 .PHONY: all clean PreBuild PrePreBuild PostBuild
 all: $(OutputFile)
 
-$(OutputFile): $(IntermediateDirectory)/.d ".build-debug\arduino_fuoco" $(Objects) 
+$(OutputFile): $(IntermediateDirectory)/.d $(Objects) 
 	@$(MakeDirCommand) $(@D)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects0)  > $(ObjectsFileList)
 	$(LinkerName) $(OutputSwitch)$(OutputFile) @$(ObjectsFileList) $(LibPath) $(Libs) $(LinkOptions)
-
-".build-debug\arduino_fuoco":
-	@$(MakeDirCommand) ".build-debug"
-	@echo stam > ".build-debug\arduino_fuoco"
-
-
-
 
 $(IntermediateDirectory)/.d:
 	@$(MakeDirCommand) "Release"
@@ -98,13 +91,13 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/main.cpp$(ObjectSuffix): main.cpp $(IntermediateDirectory)/main.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/main.cpp$(DependSuffix) -MM "main.cpp"
+$(IntermediateDirectory)/test_main.cpp$(ObjectSuffix): src/test/main.cpp $(IntermediateDirectory)/test_main.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/test/main.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/test_main.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/test_main.cpp$(DependSuffix): src/test/main.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/test_main.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/test_main.cpp$(DependSuffix) -MM "src/test/main.cpp"
 
-$(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) "main.cpp"
+$(IntermediateDirectory)/test_main.cpp$(PreprocessSuffix): src/test/main.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/test_main.cpp$(PreprocessSuffix) "src/test/main.cpp"
 
 $(IntermediateDirectory)/test_includes_AssertException.cpp$(ObjectSuffix): src/test/test_includes/AssertException.cpp $(IntermediateDirectory)/test_includes_AssertException.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/test/test_includes/AssertException.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/test_includes_AssertException.cpp$(ObjectSuffix) $(IncludePath)
@@ -234,6 +227,14 @@ $(IntermediateDirectory)/entity_testAFTime.cpp$(DependSuffix): src/test/arduino_
 $(IntermediateDirectory)/entity_testAFTime.cpp$(PreprocessSuffix): src/test/arduino_fuoco/entity/testAFTime.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/entity_testAFTime.cpp$(PreprocessSuffix) "src/test/arduino_fuoco/entity/testAFTime.cpp"
 
+$(IntermediateDirectory)/utility_testStringHelper.cpp$(ObjectSuffix): src/test/arduino_fuoco/utility/testStringHelper.cpp $(IntermediateDirectory)/utility_testStringHelper.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/test/arduino_fuoco/utility/testStringHelper.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/utility_testStringHelper.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/utility_testStringHelper.cpp$(DependSuffix): src/test/arduino_fuoco/utility/testStringHelper.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/utility_testStringHelper.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/utility_testStringHelper.cpp$(DependSuffix) -MM "src/test/arduino_fuoco/utility/testStringHelper.cpp"
+
+$(IntermediateDirectory)/utility_testStringHelper.cpp$(PreprocessSuffix): src/test/arduino_fuoco/utility/testStringHelper.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/utility_testStringHelper.cpp$(PreprocessSuffix) "src/test/arduino_fuoco/utility/testStringHelper.cpp"
+
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
 ##
@@ -244,6 +245,6 @@ clean:
 	$(RM) Release/*$(DependSuffix)
 	$(RM) $(OutputFile)
 	$(RM) $(OutputFile).exe
-	$(RM) ".build-debug/unit_testing"
+	$(RM) ".build-release/unit_testing"
 
 

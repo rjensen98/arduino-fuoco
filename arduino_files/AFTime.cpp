@@ -1,5 +1,8 @@
-#include <string>
 #include "AFTime.h"
+#include <string>
+#include <StringHelper.h>
+
+using namespace ArduinoFuoco::Utility;
 
 namespace ArduinoFuoco
 {
@@ -17,6 +20,21 @@ namespace ArduinoFuoco
     {
     }
 
+    byte AFTime::getMinute()
+    {
+      return _minute;
+    }
+
+    byte AFTime::getHour()
+    {
+      return _hour;
+    }
+
+    bool AFTime::isPm()
+    {
+      return _is_pm;
+    }
+
     void AFTime::increment()
     {
       incrementMinute();
@@ -31,10 +49,10 @@ namespace ArduinoFuoco
     {
       std::string strTime = "00:00 am";
       if (_is_pm) { strTime[6] = 'p'; }
-      strTime[0] = _hour / 10;
-      strTime[1] = _hour % 10;
-      strTime[3] = _minute / 10;
-      strTime[4] = _minute % 10;
+      strTime[0] = StringHelper::itoa(_hour / 10)[0];
+      strTime[1] = StringHelper::itoa(_hour % 10)[0];
+      strTime[3] = StringHelper::itoa(_minute / 10)[0];
+      strTime[4] = StringHelper::itoa(_minute % 10)[0];
       return strTime;
     }
 
@@ -65,9 +83,12 @@ namespace ArduinoFuoco
     void AFTime::incrementHour()
     {
       _hour++;
-      if (_hour > 12)
+      if (_hour == 12)
       {
         _is_pm = !_is_pm;
+      }
+      if (_hour > 12)
+      {
         _hour = 1;
       }
     }
@@ -75,9 +96,12 @@ namespace ArduinoFuoco
     void AFTime::decrementHour()
     {
       _hour--;
-      if (_hour < 1)
+      if (_hour == 11)
       {
         _is_pm = !_is_pm;
+      }
+      if (_hour < 1)
+      {
         _hour = 12;
       }
     }
