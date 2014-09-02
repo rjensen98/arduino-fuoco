@@ -13,15 +13,15 @@ namespace ArduinoFuoco
 
     class TimeDefinition
     {
-    public:
-      TimeDefinition();
-      TimeDefinition(ArduinoFuoco::Enums::HeatingInterval::Enum interval, AFTime time);
-      void setInterval(ArduinoFuoco::Enums::HeatingInterval::Enum interval);
-      void setTime(AFTime time);
+      public:
+        TimeDefinition();
+        TimeDefinition(ArduinoFuoco::Enums::HeatingInterval::Enum interval, AFTime time);
+        void setInterval(ArduinoFuoco::Enums::HeatingInterval::Enum interval);
+        void setTime(AFTime time);
 
-    private:
-      ArduinoFuoco::Enums::HeatingInterval::Enum _interval;
-      AFTime _time;
+      private:
+        ArduinoFuoco::Enums::HeatingInterval::Enum _interval;
+        AFTime _time;
     };
 
   }

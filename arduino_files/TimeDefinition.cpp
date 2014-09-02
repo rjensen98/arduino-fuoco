@@ -1,6 +1,6 @@
+#include "TimeDefinition.h"
 #include <AFTime.h>
 #include <HeatingInterval.h>
-#include "TimeDefinition.h"
 
 namespace ArduinoFuoco
 {
