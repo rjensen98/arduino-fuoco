@@ -33,6 +33,7 @@
       <VirtualDirectory Name="arduino_fuoco">
         <VirtualDirectory Name="entity">
           <File Name="src/test/arduino_fuoco/entity/testAFTime.cpp"/>
+          <File Name="src/test/arduino_fuoco/entity/testZone.cpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="utility">
           <File Name="src/test/arduino_fuoco/utility/testStringHelper.cpp"/>

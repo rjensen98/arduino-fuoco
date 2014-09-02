@@ -15,7 +15,7 @@ namespace ArduinoFuoco
         byte getSetTemperature();
         void setSetTemperature(const byte temperature);
         ArduinoFuoco::Enums::HeatingInterval::Enum getInterval();
-        void setInterval(const ArduinoFuoco::Enums::HeatingInterval::Enum interval);
+        void setInterval(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval);
 
       private:
         ArduinoFuoco::Enums::HeatingInterval::Enum _heatingInterval;

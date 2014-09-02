@@ -107,13 +107,13 @@ namespace ArduinoFuoco
       ZoneSetting* zs = 0;  // initialize the pointer to "null"
       for (int i = 0; i < ArduinoFuoco::Enums::HeatingInterval::COUNT; i++)
       {
-        zs = &_zoneSettings[i];
-        if (zs->getInterval() == interval)
+        if (_zoneSettings[i].getInterval() == interval)
         {
           #if (AF_DEBUG == 1)
             Serial.println("RadiantHeat::Entity::Zone::getZoneSetting - Found an interval match!");
           #endif
 
+          zs = &_zoneSettings[i];
           return zs;
         }
       }

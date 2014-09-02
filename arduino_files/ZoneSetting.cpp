@@ -33,7 +33,7 @@ namespace ArduinoFuoco
       return _heatingInterval;
     }
 
-    void ZoneSetting::setInterval(const ArduinoFuoco::Enums::HeatingInterval::Enum interval)
+    void ZoneSetting::setInterval(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval)
     {
       _heatingInterval = interval;
     }

@@ -64,7 +64,7 @@ AS       := "C:/apps/MinGW-4.8.1/bin/as.exe"
 CodeLiteDir:=C:\apps\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:/apps/UnitTest++-1.3
 Objects0=$(IntermediateDirectory)/test_main.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_AssertException.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_Checks.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_DeferredTestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_DeferredTestResult.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_MemoryOutStream.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_ReportAssert.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_Test.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestDetails.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestList.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/test_includes_TestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestReporterStdout.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestResults.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestRunner.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TimeConstraint.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_XmlTestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_testAFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_testStringHelper.cpp$(ObjectSuffix) 
+	$(IntermediateDirectory)/test_includes_TestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestReporterStdout.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestResults.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestRunner.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TimeConstraint.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_XmlTestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_testAFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_testZone.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_testStringHelper.cpp$(ObjectSuffix) 
 
 
 
@@ -226,6 +226,14 @@ $(IntermediateDirectory)/entity_testAFTime.cpp$(DependSuffix): src/test/arduino_
 
 $(IntermediateDirectory)/entity_testAFTime.cpp$(PreprocessSuffix): src/test/arduino_fuoco/entity/testAFTime.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/entity_testAFTime.cpp$(PreprocessSuffix) "src/test/arduino_fuoco/entity/testAFTime.cpp"
+
+$(IntermediateDirectory)/entity_testZone.cpp$(ObjectSuffix): src/test/arduino_fuoco/entity/testZone.cpp $(IntermediateDirectory)/entity_testZone.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/test/arduino_fuoco/entity/testZone.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/entity_testZone.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/entity_testZone.cpp$(DependSuffix): src/test/arduino_fuoco/entity/testZone.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/entity_testZone.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/entity_testZone.cpp$(DependSuffix) -MM "src/test/arduino_fuoco/entity/testZone.cpp"
+
+$(IntermediateDirectory)/entity_testZone.cpp$(PreprocessSuffix): src/test/arduino_fuoco/entity/testZone.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/entity_testZone.cpp$(PreprocessSuffix) "src/test/arduino_fuoco/entity/testZone.cpp"
 
 $(IntermediateDirectory)/utility_testStringHelper.cpp$(ObjectSuffix): src/test/arduino_fuoco/utility/testStringHelper.cpp $(IntermediateDirectory)/utility_testStringHelper.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/test/arduino_fuoco/utility/testStringHelper.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/utility_testStringHelper.cpp$(ObjectSuffix) $(IncludePath)
