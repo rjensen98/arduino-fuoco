@@ -83,11 +83,7 @@
       </Debugger>
       <PreBuild/>
       <PostBuild>
-        <Command Enabled="no">#pushd $(WorkspacePath)\src\main</Command>
-        <Command Enabled="no">##del /q "$(WorkspacePath)\arduino_files\*.*"</Command>
-        <Command Enabled="no">#for /R %%x in (*.cpp) do copy "%%x" "$(WorkspacePath)\arduino_files"</Command>
-        <Command Enabled="no">#for /R %%x in (*.h) do copy "%%x" "$(WorkspacePath)\arduino_files"</Command>
-        <Command Enabled="no">#popd</Command>
+        <Command Enabled="yes">$(WorkspacePath)\arduino_fuoco_postbuild.bat</Command>
       </PostBuild>
       <CustomBuild Enabled="no">
         <RebuildCommand/>

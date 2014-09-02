@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=RJensen
-Date                   :=09/01/14
+Date                   :=09/02/14
 CodeLitePath           :="C:\apps\CodeLite"
 LinkerName             :="C:/apps/MinGW-4.8.1/bin/g++.exe" 
 SharedObjectLinkerName :="C:/apps/MinGW-4.8.1/bin/g++.exe" -shared -fPIC
@@ -85,10 +85,7 @@ $(OutputFile): $(Objects)
 
 PostBuild:
 	@echo Executing Post Build commands ...
-	pushd $(WorkspacePath)\src\main
-	for /R %%x in (*.cpp) do copy "%%x" "$(WorkspacePath)\arduino_files"
-	for /R %%x in (*.h) do copy "%%x" "$(WorkspacePath)\arduino_files"
-	popd
+	$(WorkspacePath)\arduino_fuoco_postbuild.bat
 	@echo Done
 
 ./Debug:
