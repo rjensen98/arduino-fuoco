@@ -1,12 +1,15 @@
-#ifndef RadiantHeatAppSettings_h
-#define RadiantHeatAppSettings_h
+#ifndef ArduinoFuocoAppSettings_h
+#define ArduinoFuocoAppSettings_h
 
 // Declare a 'byte' datatype to be used throughout this library
 typedef unsigned char byte;
 
+// Define application constants
+const int HYSTERESIS = 0;
+
 
 // Set debug mode: 1 = on; 0 = off
-#define RH_DEBUG 1
+#define AF_DEBUG 1
 
 
 // if in debug mode, include Arduino.h for Serial output & printing

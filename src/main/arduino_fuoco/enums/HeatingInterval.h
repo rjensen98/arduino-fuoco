@@ -1,7 +1,7 @@
 #ifndef HeatingInterval_h
 #define HeatingInterval_h
 
-namespace RadiantHeat
+namespace ArduinoFuoco
 {
   namespace Enums
   {

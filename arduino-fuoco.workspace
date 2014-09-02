@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="arduino-fuoco" Database="/dev/arduino-fuoco/.codelite/arduino-fuoco.tags">
+  <Project Name="arduino_fuoco" Path="arduino_fuoco.project" Active="No"/>
+  <Project Name="unit_testing" Path="unit_testing.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Project Name="arduino_fuoco" ConfigName="Debug"/>
+      <Project Name="unit_testing" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Project Name="arduino_fuoco" ConfigName="Release"/>
+      <Project Name="unit_testing" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>

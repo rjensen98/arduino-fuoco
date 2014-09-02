@@ -1,11 +1,11 @@
 #ifndef Zone_h
 #define Zone_h
 
-#include <RadiantHeatAppSettings.h>
+#include <ArduinoFuocoAppSettings.h>
 #include <HeatingInterval.h>
 #include <ZoneSetting.h>
 
-namespace RadiantHeat
+namespace ArduinoFuoco
 {
   namespace Entity
   {
@@ -18,12 +18,12 @@ namespace RadiantHeat
         void turnOn();
         void turnOff();
         byte getCurrentTemperature();
-  
+
         byte getNumber();
         byte getThermostatPin();
         byte getActuatorPin();
         ZoneSetting* getZoneSettings();
-        ZoneSetting* getZoneSetting(const RadiantHeat::Enums::HeatingInterval::Enum &interval);
+        ZoneSetting* getZoneSetting(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval);
 
       private:
         byte _number;
