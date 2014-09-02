@@ -1,0 +1,9 @@
+# ignore these directories
+.build-debug
+.codelite
+Release
+Debug
+
+# ignore these files
+arduino_fuoco.txt
+unit_testing.txt
