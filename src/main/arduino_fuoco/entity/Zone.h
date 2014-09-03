@@ -13,7 +13,7 @@ namespace ArduinoFuoco
     {
       public:
         Zone();
-        Zone(const byte &number, const byte &thermostatPin, const byte &actuatorPin);
+        Zone(const byte &number, const byte &thermostatPin, const byte &relayPin);
         ~Zone();
         void turnOn();
         void turnOff();
@@ -21,16 +21,15 @@ namespace ArduinoFuoco
 
         byte getNumber();
         byte getThermostatPin();
-        byte getActuatorPin();
+        byte getRelayPin();
         ZoneSetting* getZoneSettings();
         ZoneSetting* getZoneSetting(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval);
 
       private:
         byte _number;
         byte _thermostatPin;
-        byte _actuatorPin;
+        byte _relayPin;
         ZoneSetting* _zoneSettings;
-        byte convertAnalogToTemp(const int &algValue);
     };
   }
 }

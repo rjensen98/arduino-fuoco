@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=RJensen
-Date                   :=09/02/14
+Date                   :=09/03/14
 CodeLitePath           :="C:\apps\CodeLite"
 LinkerName             :="C:/apps/MinGW-4.8.1/bin/g++.exe" 
 SharedObjectLinkerName :="C:/apps/MinGW-4.8.1/bin/g++.exe" -shared -fPIC
@@ -63,7 +63,7 @@ AS       := "C:/apps/MinGW-4.8.1/bin/as.exe"
 ##
 CodeLiteDir:=C:\apps\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:/apps/UnitTest++-1.3
-Objects0=$(IntermediateDirectory)/include_Arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_ZoneSetting.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_TimeDefinition.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_AFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/include_Arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_ZoneSetting.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_TimeDefinition.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_AFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Circulator.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix) 
 
 
 
@@ -146,6 +146,14 @@ $(IntermediateDirectory)/entity_AFTime.cpp$(DependSuffix): src/main/arduino_fuoc
 $(IntermediateDirectory)/entity_AFTime.cpp$(PreprocessSuffix): src/main/arduino_fuoco/entity/AFTime.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/entity_AFTime.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/entity/AFTime.cpp"
 
+$(IntermediateDirectory)/entity_Circulator.cpp$(ObjectSuffix): src/main/arduino_fuoco/entity/Circulator.cpp $(IntermediateDirectory)/entity_Circulator.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/entity/Circulator.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/entity_Circulator.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/entity_Circulator.cpp$(DependSuffix): src/main/arduino_fuoco/entity/Circulator.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/entity_Circulator.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/entity_Circulator.cpp$(DependSuffix) -MM "src/main/arduino_fuoco/entity/Circulator.cpp"
+
+$(IntermediateDirectory)/entity_Circulator.cpp$(PreprocessSuffix): src/main/arduino_fuoco/entity/Circulator.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/entity_Circulator.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/entity/Circulator.cpp"
+
 $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix): src/main/arduino_fuoco/utility/StringHelper.cpp $(IntermediateDirectory)/utility_StringHelper.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/utility/StringHelper.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/utility_StringHelper.cpp$(DependSuffix): src/main/arduino_fuoco/utility/StringHelper.cpp
@@ -153,6 +161,14 @@ $(IntermediateDirectory)/utility_StringHelper.cpp$(DependSuffix): src/main/ardui
 
 $(IntermediateDirectory)/utility_StringHelper.cpp$(PreprocessSuffix): src/main/arduino_fuoco/utility/StringHelper.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/utility_StringHelper.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/utility/StringHelper.cpp"
+
+$(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix): src/main/arduino_fuoco/utility/AnalogHelper.cpp $(IntermediateDirectory)/utility_AnalogHelper.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/utility/AnalogHelper.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/utility_AnalogHelper.cpp$(DependSuffix): src/main/arduino_fuoco/utility/AnalogHelper.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/utility_AnalogHelper.cpp$(DependSuffix) -MM "src/main/arduino_fuoco/utility/AnalogHelper.cpp"
+
+$(IntermediateDirectory)/utility_AnalogHelper.cpp$(PreprocessSuffix): src/main/arduino_fuoco/utility/AnalogHelper.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/utility_AnalogHelper.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/utility/AnalogHelper.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

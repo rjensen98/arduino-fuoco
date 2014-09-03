@@ -47,13 +47,18 @@
           <File Name="src/main/arduino_fuoco/entity/TimeDefinition.cpp"/>
           <File Name="src/main/arduino_fuoco/entity/AFTime.h"/>
           <File Name="src/main/arduino_fuoco/entity/AFTime.cpp"/>
+          <File Name="src/main/arduino_fuoco/entity/Circulator.h"/>
+          <File Name="src/main/arduino_fuoco/entity/Circulator.cpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="enums">
           <File Name="src/main/arduino_fuoco/enums/HeatingInterval.h"/>
+          <File Name="src/main/arduino_fuoco/enums/CirculatorType.h"/>
         </VirtualDirectory>
         <VirtualDirectory Name="utility">
           <File Name="src/main/arduino_fuoco/utility/StringHelper.h"/>
           <File Name="src/main/arduino_fuoco/utility/StringHelper.cpp"/>
+          <File Name="src/main/arduino_fuoco/utility/AnalogHelper.h"/>
+          <File Name="src/main/arduino_fuoco/utility/AnalogHelper.cpp"/>
         </VirtualDirectory>
       </VirtualDirectory>
     </VirtualDirectory>

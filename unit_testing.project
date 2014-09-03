@@ -81,8 +81,6 @@
       <File Name="src/test/main.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
   <Settings Type="Executable">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -183,4 +181,10 @@
       </Completion>
     </Configuration>
   </Settings>
+  <Dependencies Name="Release">
+    <Project Name="arduino_fuoco"/>
+  </Dependencies>
+  <Dependencies Name="Debug">
+    <Project Name="arduino_fuoco"/>
+  </Dependencies>
 </CodeLite_Project>
