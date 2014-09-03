@@ -2,6 +2,8 @@
 #define HeatController_h
 
 #include <ArduinoFuocoAppSettings.h>
+#include <Circulator.h>
+#include <CirculatorType.h>
 #include <TimeDefinition.h>
 #include <Zone.h>
 
@@ -18,6 +20,7 @@ namespace ArduinoFuoco
         HeatController(const byte numZones);
         ~HeatController();
         void addZone(Zone &zone);
+        void addCirculator(Circulator &zone);
         void heatHouse();
         TimeDefinition* getTimeDefinitions();
     //    TimePeriod; TimeOfDay;
@@ -27,6 +30,10 @@ namespace ArduinoFuoco
         byte _zoneCount;
         Zone** _zones;
         Zone* getZone(byte zoneId);
+        byte _circulatorCount;
+        Circulator** _circulators;
+        Circulator* getCirculator(CirculatorType::Enum circType);
+
         HeatingInterval::Enum getCurrentInterval();
     };
   }

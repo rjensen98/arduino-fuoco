@@ -5,7 +5,8 @@
 typedef unsigned char byte;
 
 // Define application constants
-const int HYSTERESIS = 0;
+const byte HYSTERESIS = 0;
+const byte MAX_CIRCULATORS = 2;  // only allowing 2 for now; have an idea to add a Circ ref to Zone to allow multiple primaries
 
 
 // Set debug mode: 1 = on; 0 = off
@@ -13,7 +14,7 @@ const int HYSTERESIS = 0;
 
 
 // if in debug mode, include Arduino.h for Serial output & printing
-#if (ARDUINO >= 100)
+#if (AF_DEBUG == 1)
   #include "Arduino.h"
 #endif
 

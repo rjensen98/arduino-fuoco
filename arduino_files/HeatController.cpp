@@ -1,8 +1,11 @@
 #include "HeatController.h"
+#include "Circulator.h"
 #include <stdexcept>
 #include "TimeDefinition.h"
 #include "Zone.h"
 #include "ZoneSetting.h"
+
+using namespace ArduinoFuoco::Entity;
 
 namespace ArduinoFuoco
 {
@@ -10,14 +13,16 @@ namespace ArduinoFuoco
   {
 
     HeatController::HeatController(const byte numZones)
-        : _maxZones(numZones), _zoneCount(0)
+        : _maxZones(numZones), _zoneCount(0), _circulatorCount(0)
     {
       _zones = new Zone*[numZones];
+      _circulators = new Circulator*[MAX_CIRCULATORS];
     }
 
     HeatController::~HeatController()
     {
       delete[] _zones;
+      delete[] _circulators;
     }
 
     void HeatController::addZone(Zone &zone)
@@ -30,6 +35,19 @@ namespace ArduinoFuoco
       else
       {
         throw std::out_of_range ("There is no room for more zones in this controller.");
+      }
+    }
+
+    void HeatController::addCirculator(Circulator &circ)
+    {
+      if ((_circulatorCount + 1) < MAX_CIRCULATORS)
+      {
+        _circulators[_circulatorCount] = &circ;
+        _circulatorCount++;
+      }
+      else
+      {
+        throw std::out_of_range ("There is no room for more circulators in this controller.");
       }
     }
 
@@ -50,13 +68,30 @@ namespace ArduinoFuoco
 
     Zone* HeatController::getZone(byte zoneId)
     {
+      Zone* z = 0;
       for (int i = 0; i < _zoneCount; i++)
       {
         if (_zones[i]->getNumber() == zoneId)
         {
-          return _zones[i];
+          z = _zones[i];
+          return z;
         }
       }
+      return z;
+    }
+
+    Circulator* HeatController::getCirculator(CirculatorType::Enum circType)
+    {
+      Circulator* c = 0;
+      for (int i = 0; i < _circulatorCount; i++)
+      {
+        if (_circulators[i]->getCirculatorType() == circType)
+        {
+          c = _circulators[i];
+          return c;
+        }
+      }
+      return c;
     }
 
     TimeDefinition* HeatController::getTimeDefinitions()

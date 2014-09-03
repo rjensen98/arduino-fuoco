@@ -76,11 +76,18 @@ Objects=$(Objects0)
 .PHONY: all clean PreBuild PrePreBuild PostBuild
 all: $(OutputFile)
 
-$(OutputFile): $(IntermediateDirectory)/.d $(Objects) 
+$(OutputFile): $(IntermediateDirectory)/.d ".build-release\arduino_fuoco" $(Objects) 
 	@$(MakeDirCommand) $(@D)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects0)  > $(ObjectsFileList)
 	$(LinkerName) $(OutputSwitch)$(OutputFile) @$(ObjectsFileList) $(LibPath) $(Libs) $(LinkOptions)
+
+".build-release\arduino_fuoco":
+	@$(MakeDirCommand) ".build-release"
+	@echo stam > ".build-release\arduino_fuoco"
+
+
+
 
 $(IntermediateDirectory)/.d:
 	@$(MakeDirCommand) "Release"
