@@ -14,12 +14,13 @@ namespace ArduinoFuoco
 
     // This constructor should not be called directly; it's here merely for initialization in an array
     Circulator::Circulator()
-        : _relayPin(0), _thermostatPin(-1), _circulatorType(CirculatorType::PRIMARY)
+        : _relayPin(0), _thermostatPin(-1), _circulatorType(CirculatorType::PRIMARY), _onRequests(0)
     {
     }
 
     Circulator::Circulator(byte relayPin, int thermostatPin, CirculatorType::Enum circType, bool isAnalogThermostat)
-        : _relayPin(relayPin), _thermostatPin(thermostatPin), _circulatorType(circType), _isAnalogThermostat(isAnalogThermostat)
+        : _relayPin(relayPin), _thermostatPin(thermostatPin),
+          _circulatorType(circType), _isAnalogThermostat(isAnalogThermostat), _onRequests(0)
     {
       // Initialize the relay pin
       // NOTE: doing this manually rather than calling turnOn() because the initialization of the relay board pins is VERY specific
@@ -52,6 +53,11 @@ namespace ArduinoFuoco
       return _isAnalogThermostat;
     }
 
+    bool Circulator::isOn()
+    {
+      return _isOn;
+    }
+
     CirculatorType::Enum Circulator::getCirculatorType()
     {
       return _circulatorType;
@@ -59,24 +65,34 @@ namespace ArduinoFuoco
 
     void Circulator::turnOn()
     {
-      #if (AF_DEBUG == 1)
-        Serial.print("ArduinoFuoco::Entity::Circulator::turnOn - Turning on Circulation Pump - ");
-        Serial.print(_circulatorType, DEC);
-        Serial.print(" on pin ");
-        Serial.println(_relayPin, DEC);
-      #endif
-      digitalWrite(_relayPin, LOW);
+      if (_onRequests == 0)
+      {
+        #if (AF_DEBUG == 1)
+          Serial.print("ArduinoFuoco::Entity::Circulator::turnOn - Turning on Circulation Pump - ");
+          Serial.print(_circulatorType, DEC);
+          Serial.print(" on pin ");
+          Serial.println(_relayPin, DEC);
+        #endif
+        digitalWrite(_relayPin, LOW);
+        _isOn = true;
+      }
+      _onRequests++;
     }
 
     void Circulator::turnOff()
     {
-      #if (AF_DEBUG == 1)
-        Serial.print("ArduinoFuoco::Entity::Zone::turnOff - Turning off Circulation Pump - ");
-        Serial.print(_circulatorType, DEC);
-        Serial.print(" on pin ");
-        Serial.println(_relayPin, DEC);
-      #endif
-      digitalWrite(_relayPin, HIGH);
+      _onRequests--;
+      if (_onRequests == 0)
+      {
+        #if (AF_DEBUG == 1)
+          Serial.print("ArduinoFuoco::Entity::Zone::turnOff - Turning off Circulation Pump - ");
+          Serial.print(_circulatorType, DEC);
+          Serial.print(" on pin ");
+          Serial.println(_relayPin, DEC);
+        #endif
+        digitalWrite(_relayPin, HIGH);
+        _isOn = false;
+      }
     }
 
     byte Circulator::getCurrentTemperature()

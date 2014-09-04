@@ -1,4 +1,6 @@
 #include <UnitTest++.h>
+#include "Circulator.h"
+#include "CirculatorType.h"
 #include "Zone.h"
 #include "ZoneSetting.h"
 #include "HeatingInterval.h"
@@ -72,6 +74,73 @@ SUITE(TestZone)
 
     z.turnOff();
     CHECK(!z.isOn());
+  }
+
+  TEST(turnOn_CirculatorStatus)
+  {
+    Circulator c(1, 5, CirculatorType::PRIMARY);
+    CHECK(!c.isOn());
+    Zone z1(1, 5, 10);
+    Zone z2(2, 6, 11);
+    Zone z3(3, 7, 12);
+    z1.setCirculator(c);
+    z2.setCirculator(c);
+    z3.setCirculator(c);
+
+    // and now, your feature presentation!!!
+
+    CHECK(!c.isOn());
+    CHECK(!z1.isOn());
+    CHECK(!z2.isOn());
+    CHECK(!z3.isOn());
+
+    z1.turnOn();
+    CHECK(c.isOn());
+    CHECK(z1.isOn());
+    CHECK(!z2.isOn());
+    CHECK(!z3.isOn());
+
+    z2.turnOn();
+    CHECK(c.isOn());
+    CHECK(z1.isOn());
+    CHECK(z2.isOn());
+    CHECK(!z3.isOn());
+
+    z1.turnOff();
+    CHECK(c.isOn());
+    CHECK(!z1.isOn());
+    CHECK(z2.isOn());
+    CHECK(!z3.isOn());
+
+    z1.turnOff();
+    CHECK(c.isOn());
+    CHECK(!z1.isOn());
+    CHECK(z2.isOn());
+    CHECK(!z3.isOn());
+
+    z2.turnOff();
+    CHECK(!c.isOn());
+    CHECK(!z1.isOn());
+    CHECK(!z2.isOn());
+    CHECK(!z3.isOn());
+
+    z3.turnOn();
+    CHECK(c.isOn());
+    CHECK(!z1.isOn());
+    CHECK(!z2.isOn());
+    CHECK(z3.isOn());
+
+    z3.turnOff();
+    CHECK(!c.isOn());
+    CHECK(!z1.isOn());
+    CHECK(!z2.isOn());
+    CHECK(!z3.isOn());
+
+    z3.turnOff();
+    CHECK(!c.isOn());
+    CHECK(!z1.isOn());
+    CHECK(!z2.isOn());
+    CHECK(!z3.isOn());
   }
 
 }

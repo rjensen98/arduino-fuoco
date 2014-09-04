@@ -2,6 +2,7 @@
 #define Zone_h
 
 #include <ArduinoFuocoAppSettings.h>
+#include <Circulator.h>
 #include <HeatingInterval.h>
 #include <ZoneSetting.h>
 
@@ -23,6 +24,7 @@ namespace ArduinoFuoco
         byte getThermostatPin();
         byte getRelayPin();
         bool isOn();
+        void setCirculator(Circulator &circulator);
         ZoneSetting* getZoneSettings();
         ZoneSetting* getZoneSetting(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval);
 
@@ -32,6 +34,7 @@ namespace ArduinoFuoco
         byte _relayPin;
         bool _isOn;
         ZoneSetting* _zoneSettings;
+        Circulator* _circulator;
     };
   }
 }

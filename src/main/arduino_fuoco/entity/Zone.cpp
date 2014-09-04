@@ -1,6 +1,7 @@
 #include "Zone.h"
 #include <AnalogHelper.h>
 #include <Arduino.h>
+#include <Circulator.h>
 #include <HeatingInterval.h>
 #include <ZoneSetting.h>
 
@@ -23,6 +24,7 @@ namespace ArduinoFuoco
         : _number(number), _thermostatPin(thermostatPin), _relayPin(relayPin), _isOn(false)
     {
       _zoneSettings = new ZoneSetting[ArduinoFuoco::Enums::HeatingInterval::COUNT];
+      _circulator = 0;
 
       // Initialize the relay pin
       // NOTE: doing this manually rather than calling turnOn() because the initialization of the relay board pins is VERY specific
@@ -78,26 +80,49 @@ namespace ArduinoFuoco
 
     void Zone::turnOn()
     {
-      #if (AF_DEBUG == 1)
-        Serial.print("ArduinoFuoco::Entity::Zone::turnOn - Turning on Zone ");
-        Serial.print(_number, DEC);
-        Serial.print(" on pin ");
-        Serial.println(_relayPin, DEC);
-      #endif
-      digitalWrite(_relayPin, LOW);
-      _isOn = true;
+      if (!_isOn)
+      {
+        #if (AF_DEBUG == 1)
+          Serial.print("ArduinoFuoco::Entity::Zone::turnOn - Turning on Zone ");
+          Serial.print(_number, DEC);
+          Serial.print(" on pin ");
+          Serial.println(_relayPin, DEC);
+        #endif
+        digitalWrite(_relayPin, LOW);
+        _isOn = true;
+
+        // turn on the zone circulator
+        if (_circulator)
+        {
+          _circulator->turnOn();
+        }
+      }
     }
 
     void Zone::turnOff()
     {
-      #if (AF_DEBUG == 1)
-        Serial.print("ArduinoFuoco::Entity::Zone::turnOff - Shutting off Zone ");
-        Serial.print(_number, DEC);
-        Serial.print(" on pin ");
-        Serial.println(_relayPin, DEC);
-      #endif
-      digitalWrite(_relayPin, HIGH);
-      _isOn = false;
+      if (_isOn)
+      {
+        #if (AF_DEBUG == 1)
+          Serial.print("ArduinoFuoco::Entity::Zone::turnOff - Shutting off Zone ");
+          Serial.print(_number, DEC);
+          Serial.print(" on pin ");
+          Serial.println(_relayPin, DEC);
+        #endif
+        digitalWrite(_relayPin, HIGH);
+        _isOn = false;
+
+        // turn off the zone circulator
+        if (_circulator)
+        {
+          _circulator->turnOff();
+        }
+      }
+    }
+
+    void Zone::setCirculator(Circulator &circulator)
+    {
+      _circulator = &circulator;
     }
 
     ZoneSetting* Zone::getZoneSettings()
