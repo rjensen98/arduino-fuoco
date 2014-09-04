@@ -15,12 +15,12 @@ namespace ArduinoFuoco
 
     // This constructor should not be called directly; it's here merely for initialization in an array
     Zone::Zone()
-        : _number(0), _thermostatPin(0), _relayPin(0)
+        : _number(0), _thermostatPin(0), _relayPin(0), _isOn(false)
     {
     }
 
     Zone::Zone(const byte &number, const byte &thermostatPin, const byte &relayPin)
-        : _number(number), _thermostatPin(thermostatPin), _relayPin(relayPin)
+        : _number(number), _thermostatPin(thermostatPin), _relayPin(relayPin), _isOn(false)
     {
       _zoneSettings = new ZoneSetting[ArduinoFuoco::Enums::HeatingInterval::COUNT];
 
@@ -71,6 +71,11 @@ namespace ArduinoFuoco
       return _relayPin;
     }
 
+    bool Zone::isOn()
+    {
+      return _isOn;
+    }
+
     void Zone::turnOn()
     {
       #if (AF_DEBUG == 1)
@@ -80,6 +85,7 @@ namespace ArduinoFuoco
         Serial.println(_relayPin, DEC);
       #endif
       digitalWrite(_relayPin, LOW);
+      _isOn = true;
     }
 
     void Zone::turnOff()
@@ -91,6 +97,7 @@ namespace ArduinoFuoco
         Serial.println(_relayPin, DEC);
       #endif
       digitalWrite(_relayPin, HIGH);
+      _isOn = false;
     }
 
     ZoneSetting* Zone::getZoneSettings()

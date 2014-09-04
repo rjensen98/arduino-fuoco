@@ -61,4 +61,17 @@ SUITE(TestZone)
     CHECK_EQUAL(newTemp, zs->getSetTemperature());
   }
 
+
+  TEST(turnOn)
+  {
+    Zone z(1, 5, 10);
+    CHECK(!z.isOn());
+
+    z.turnOn();
+    CHECK(z.isOn());
+
+    z.turnOff();
+    CHECK(!z.isOn());
+  }
+
 }

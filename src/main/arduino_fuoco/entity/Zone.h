@@ -22,6 +22,7 @@ namespace ArduinoFuoco
         byte getNumber();
         byte getThermostatPin();
         byte getRelayPin();
+        bool isOn();
         ZoneSetting* getZoneSettings();
         ZoneSetting* getZoneSetting(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval);
 
@@ -29,6 +30,7 @@ namespace ArduinoFuoco
         byte _number;
         byte _thermostatPin;
         byte _relayPin;
+        bool _isOn;
         ZoneSetting* _zoneSettings;
     };
   }
