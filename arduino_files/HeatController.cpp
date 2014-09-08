@@ -18,7 +18,7 @@ namespace ArduinoFuoco
         : _maxZones(numZones), _zoneCount(0), _circulatorCount(0), _zonesRunning(0)
     {
       _zones = new Zone*[numZones];
-      _circulators = new Circulator*[MAX_CIRCULATORS];
+      _circulators = new Circulator*[ArduinoFuoco::AppSettings::MAX_CIRCULATORS];
     }
 
     HeatController::~HeatController()
@@ -42,7 +42,7 @@ namespace ArduinoFuoco
 
     void HeatController::addCirculator(Circulator &circ)
     {
-      if ((_circulatorCount + 1) < MAX_CIRCULATORS)
+      if ((_circulatorCount + 1) < ArduinoFuoco::AppSettings::MAX_CIRCULATORS)
       {
         _circulators[_circulatorCount] = &circ;
         _circulatorCount++;
@@ -59,12 +59,12 @@ namespace ArduinoFuoco
       {
         Zone* zone = _zones[i];
         ZoneSetting* setting = zone->getZoneSetting(getCurrentInterval());
-        if (!zone->isOn() && zone->getCurrentTemperature() < (setting->getSetTemperature() - HYSTERESIS)) {
+        if (!zone->isOn() && zone->getCurrentTemperature() < (setting->getSetTemperature() - ArduinoFuoco::AppSettings::HYSTERESIS)) {
           zone->turnOn();
           _zonesRunning++;
           runPrimaryCirculator();
         }
-        else if (zone->isOn() && zone->getCurrentTemperature() > (setting->getSetTemperature() + HYSTERESIS)) {
+        else if (zone->isOn() && zone->getCurrentTemperature() > (setting->getSetTemperature() + ArduinoFuoco::AppSettings::HYSTERESIS)) {
           zone->turnOff();
           _zonesRunning--;
           runPrimaryCirculator();
