@@ -59,12 +59,12 @@ namespace ArduinoFuoco
       {
         Zone* zone = _zones[i];
         ZoneSetting* setting = zone->getZoneSetting(getCurrentInterval());
-        if (!zone->isOn() && setting->getSetTemperature() < (zone->getCurrentTemperature() - HYSTERESIS)) {
+        if (!zone->isOn() && zone->getCurrentTemperature() < (setting->getSetTemperature() - HYSTERESIS)) {
           zone->turnOn();
           _zonesRunning++;
           runPrimaryCirculator();
         }
-        else if (zone->isOn() && setting->getSetTemperature() > (zone->getCurrentTemperature() + HYSTERESIS)) {
+        else if (zone->isOn() && zone->getCurrentTemperature() > (setting->getSetTemperature() + HYSTERESIS)) {
           zone->turnOff();
           _zonesRunning--;
           runPrimaryCirculator();

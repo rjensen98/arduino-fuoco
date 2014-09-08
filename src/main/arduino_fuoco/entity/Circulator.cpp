@@ -105,11 +105,11 @@ namespace ArduinoFuoco
         else
         {
           // analog thermostat trigger defined; turn on/off based on current temperature's relation to the shut-off temp
-          if (getCurrentTemperature() <= BOILER_SHUTOFF_TEMP)
+          if (!_isOn && getCurrentTemperature() <= (BOILER_SHUTOFF_TEMP - HYSTERESIS))
           {
             turnOn();
           }
-          else
+          else if (_isOn && getCurrentTemperature() > (BOILER_SHUTOFF_TEMP + HYSTERESIS))
           {
             turnOff();
           }
@@ -128,6 +128,7 @@ namespace ArduinoFuoco
           Serial.println(_relayPin, DEC);
         #endif
         digitalWrite(_relayPin, LOW);
+        _isOn = true;
       }
     }
 
@@ -142,6 +143,7 @@ namespace ArduinoFuoco
           Serial.println(_relayPin, DEC);
         #endif
         digitalWrite(_relayPin, HIGH);
+        _isOn = false;
       }
     }
 
