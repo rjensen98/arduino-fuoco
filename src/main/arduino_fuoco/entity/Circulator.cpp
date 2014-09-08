@@ -14,12 +14,20 @@ namespace ArduinoFuoco
 
     // This constructor should not be called directly; it's here merely for initialization in an array
     Circulator::Circulator()
-        : _relayPin(0), _thermostatPin(-1), _circulatorType(CirculatorType::PRIMARY)
+        : _relayPin(0), _thermostatPin(-1), _circulatorType(CirculatorType::PRIMARY), _isOn(false)
     {
     }
 
+    /*********************************************************************************************
+     * Circulators can exists without thermostat regulation. In these cases, set the thermostat
+     * pin to -1.
+     *
+     * Circulators can also be regulated by a digital thermostat ON/OFF signal. In these cases,
+     * set isAnalogThermostat to false.
+     ********************************************************************************************/
     Circulator::Circulator(byte relayPin, int thermostatPin, CirculatorType::Enum circType, bool isAnalogThermostat)
-        : _relayPin(relayPin), _thermostatPin(thermostatPin), _circulatorType(circType), _isAnalogThermostat(isAnalogThermostat)
+        : _relayPin(relayPin), _thermostatPin(thermostatPin),
+          _circulatorType(circType), _isAnalogThermostat(isAnalogThermostat), _isOn(false)
     {
       // Initialize the relay pin
       // NOTE: doing this manually rather than calling turnOn() because the initialization of the relay board pins is VERY specific
@@ -52,31 +60,89 @@ namespace ArduinoFuoco
       return _isAnalogThermostat;
     }
 
+    bool Circulator::isOn()
+    {
+      return _isOn;
+    }
+
     CirculatorType::Enum Circulator::getCirculatorType()
     {
       return _circulatorType;
     }
 
+    /***********************************************************************
+     * bool desiredState -
+     *          true = ON; we want it running...pending any external inputs
+     *          false = OFF; shut it off
+     **********************************************************************/
+    void Circulator::run(bool desiredState)
+    {
+      if (!desiredState)
+      {
+        turnOff();
+      }
+      else
+      {
+        // we want it running.  check external dependencies
+
+        if (_thermostatPin < 0)
+        {
+          // no thermostat source defined; turn it on
+          turnOn();
+        }
+        else if (!_isAnalogThermostat)
+        {
+          // digital thermostat trigger defined; turn on/off based on trigger
+          if (digitalRead(_thermostatPin) == HIGH)
+          {
+            turnOn();
+          }
+          else
+          {
+            turnOff();
+          }
+        }
+        else
+        {
+          // analog thermostat trigger defined; turn on/off based on current temperature's relation to the shut-off temp
+          if (getCurrentTemperature() <= BOILER_SHUTOFF_TEMP)
+          {
+            turnOn();
+          }
+          else
+          {
+            turnOff();
+          }
+        }
+      }
+    }
+
     void Circulator::turnOn()
     {
-      #if (AF_DEBUG == 1)
-        Serial.print("ArduinoFuoco::Entity::Circulator::turnOn - Turning on Circulation Pump - ");
-        Serial.print(_circulatorType, DEC);
-        Serial.print(" on pin ");
-        Serial.println(_relayPin, DEC);
-      #endif
-      digitalWrite(_relayPin, LOW);
+      if (!_isOn)
+      {
+        #if (AF_DEBUG == 1)
+          Serial.print("ArduinoFuoco::Entity::Circulator::turnOn - Turning on Circulation Pump - ");
+          Serial.print(_circulatorType, DEC);
+          Serial.print(" on pin ");
+          Serial.println(_relayPin, DEC);
+        #endif
+        digitalWrite(_relayPin, LOW);
+      }
     }
 
     void Circulator::turnOff()
     {
-      #if (AF_DEBUG == 1)
-        Serial.print("ArduinoFuoco::Entity::Zone::turnOff - Turning off Circulation Pump - ");
-        Serial.print(_circulatorType, DEC);
-        Serial.print(" on pin ");
-        Serial.println(_relayPin, DEC);
-      #endif
-      digitalWrite(_relayPin, HIGH);
+      if (_isOn)
+      {
+        #if (AF_DEBUG == 1)
+          Serial.print("ArduinoFuoco::Entity::Zone::turnOff - Turning off Circulation Pump - ");
+          Serial.print(_circulatorType, DEC);
+          Serial.print(" on pin ");
+          Serial.println(_relayPin, DEC);
+        #endif
+        digitalWrite(_relayPin, HIGH);
+      }
     }
 
     byte Circulator::getCurrentTemperature()

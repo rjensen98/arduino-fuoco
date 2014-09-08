@@ -78,26 +78,32 @@ namespace ArduinoFuoco
 
     void Zone::turnOn()
     {
-      #if (AF_DEBUG == 1)
-        Serial.print("ArduinoFuoco::Entity::Zone::turnOn - Turning on Zone ");
-        Serial.print(_number, DEC);
-        Serial.print(" on pin ");
-        Serial.println(_relayPin, DEC);
-      #endif
-      digitalWrite(_relayPin, LOW);
-      _isOn = true;
+      if (!_isOn)
+      {
+        #if (AF_DEBUG == 1)
+          Serial.print("ArduinoFuoco::Entity::Zone::turnOn - Turning on Zone ");
+          Serial.print(_number, DEC);
+          Serial.print(" on pin ");
+          Serial.println(_relayPin, DEC);
+        #endif
+        digitalWrite(_relayPin, LOW);
+        _isOn = true;
+      }
     }
 
     void Zone::turnOff()
     {
-      #if (AF_DEBUG == 1)
-        Serial.print("ArduinoFuoco::Entity::Zone::turnOff - Shutting off Zone ");
-        Serial.print(_number, DEC);
-        Serial.print(" on pin ");
-        Serial.println(_relayPin, DEC);
-      #endif
-      digitalWrite(_relayPin, HIGH);
-      _isOn = false;
+      if (_isOn)
+      {
+        #if (AF_DEBUG == 1)
+          Serial.print("ArduinoFuoco::Entity::Zone::turnOff - Shutting off Zone ");
+          Serial.print(_number, DEC);
+          Serial.print(" on pin ");
+          Serial.println(_relayPin, DEC);
+        #endif
+        digitalWrite(_relayPin, HIGH);
+        _isOn = false;
+      }
     }
 
     ZoneSetting* Zone::getZoneSettings()

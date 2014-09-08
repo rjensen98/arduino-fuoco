@@ -21,8 +21,10 @@ namespace ArduinoFuoco
         byte getRelayPin();
         int getThermostatPin();
         bool isAnalogThermostat();
+        bool isOn();
         CirculatorType::Enum getCirculatorType();
 
+        void run(bool desiredState);
         void turnOn();
         void turnOff();
         byte getCurrentTemperature();
@@ -32,6 +34,7 @@ namespace ArduinoFuoco
         int _thermostatPin;
         CirculatorType::Enum _circulatorType;
         bool _isAnalogThermostat;
+        bool _isOn;
     };
 
   }

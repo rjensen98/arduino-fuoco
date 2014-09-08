@@ -28,13 +28,16 @@ namespace ArduinoFuoco
       private:
         byte _maxZones;
         byte _zoneCount;
+        byte _zonesRunning;
+        byte _circulatorCount;
         Zone** _zones;
         Zone* getZone(byte zoneId);
-        byte _circulatorCount;
+        HeatingInterval::Enum getCurrentInterval();
         Circulator** _circulators;
         Circulator* getCirculator(CirculatorType::Enum circType);
-
-        HeatingInterval::Enum getCurrentInterval();
+        void runPrimaryCirculator();
+        void runBoilerCirculator();
+        void runCirculator(Circulator* primary);
     };
   }
 }

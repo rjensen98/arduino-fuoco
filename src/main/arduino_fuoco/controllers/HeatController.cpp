@@ -1,11 +1,13 @@
 #include "HeatController.h"
 #include "Circulator.h"
+#include "CirculatorType.h"
 #include <stdexcept>
 #include "TimeDefinition.h"
 #include "Zone.h"
 #include "ZoneSetting.h"
 
 using namespace ArduinoFuoco::Entity;
+using namespace ArduinoFuoco::Enums;
 
 namespace ArduinoFuoco
 {
@@ -13,7 +15,7 @@ namespace ArduinoFuoco
   {
 
     HeatController::HeatController(const byte numZones)
-        : _maxZones(numZones), _zoneCount(0), _circulatorCount(0)
+        : _maxZones(numZones), _zoneCount(0), _circulatorCount(0), _zonesRunning(0)
     {
       _zones = new Zone*[numZones];
       _circulators = new Circulator*[MAX_CIRCULATORS];
@@ -57,12 +59,18 @@ namespace ArduinoFuoco
       {
         Zone* zone = _zones[i];
         ZoneSetting* setting = zone->getZoneSetting(getCurrentInterval());
-      if (setting->getSetTemperature() < (zone->getCurrentTemperature() - HYSTERESIS)) {
-        zone->turnOn();
-      }
-      else if (setting->getSetTemperature() > (zone->getCurrentTemperature() + HYSTERESIS)) {
-        zone->turnOff();
-      }
+        if (!zone->isOn() && zone->getCurrentTemperature() < (setting->getSetTemperature() - HYSTERESIS)) {
+          zone->turnOn();
+          _zonesRunning++;
+          runPrimaryCirculator();
+        }
+        else if (zone->isOn() && zone->getCurrentTemperature() > (setting->getSetTemperature() + HYSTERESIS)) {
+          zone->turnOff();
+          _zonesRunning--;
+          runPrimaryCirculator();
+        }
+
+        runBoilerCirculator();
       }
     }
 
@@ -105,6 +113,40 @@ namespace ArduinoFuoco
     {
       //TODO: implement this!!!
       return HeatingInterval::WKDAY_WAKE;
+    }
+
+    void HeatController::runCirculator(Circulator* circ)
+    {
+      if (circ)
+      {
+        #if (AF_DEBUG == 1)
+          Serial.print("ArduinoFuoco::Entity::HeatController::runCirculator - Running circulator; _zonesRunning = ");
+          Serial.println(_zonesRunning, DEC);
+        #endif
+        circ->run(_zonesRunning == 0);
+      }
+      #if (AF_DEBUG == 1)
+        else
+        {
+          Serial.println("ArduinoFuoco::Entity::HeatController::runCirculator - Reference to circulator object not found!");
+        }
+      #endif
+    }
+
+    void HeatController::runPrimaryCirculator()
+    {
+      #if (AF_DEBUG == 1)
+        Serial.println("ArduinoFuoco::Entity::HeatController::runPrimaryCirculator - Finding primary circulator...");
+      #endif
+      runCirculator(getCirculator(CirculatorType::PRIMARY));
+    }
+
+    void HeatController::runBoilerCirculator()
+    {
+      #if (AF_DEBUG == 1)
+        Serial.println("ArduinoFuoco::Entity::HeatController::runPrimaryCirculator - Finding boiler circulator...");
+      #endif
+      runCirculator(getCirculator(CirculatorType::BOILER));
     }
 
   }
