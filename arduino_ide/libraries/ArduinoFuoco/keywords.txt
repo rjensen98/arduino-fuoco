@@ -1,0 +1,10 @@
+AFTime	KEYWORD1
+AnalogHelper	KEYWORD1
+Circulator	KEYWORD1
+CirculatorType	LITERAL1
+HeatController	KEYWORD1
+HeatingInterval	LITERAL1
+StringHelper	KEYWORD1
+TimeDefinition	KEYWORD1
+Zone	KEYWORD1
+ZoneSetting	KEYWORD1
