@@ -1,5 +1,4 @@
 #include "AFTime.h"
-#include <string>
 #include <StringHelper.h>
 
 using namespace ArduinoFuoco::Utility;
@@ -45,9 +44,9 @@ namespace ArduinoFuoco
       decrementMinute();
     }
 
-    std::string AFTime::toString()
+    String AFTime::toString()
     {
-      std::string strTime = "00:00 am";
+      String strTime = "00:00 am";
       if (_is_pm) { strTime[6] = 'p'; }
       strTime[0] = StringHelper::itoa(_hour / 10)[0];
       strTime[1] = StringHelper::itoa(_hour % 10)[0];

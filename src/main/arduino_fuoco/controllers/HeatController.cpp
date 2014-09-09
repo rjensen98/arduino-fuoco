@@ -36,7 +36,9 @@ namespace ArduinoFuoco
       }
       else
       {
-        throw std::out_of_range ("There is no room for more zones in this controller.");
+        #if (AF_DEBUG == 1)
+          Serial.println("ArduinoFuoco::Entity::HeatController::addZone - There is no room for more zones in this controller.");
+        #endif
       }
     }
 
@@ -49,7 +51,9 @@ namespace ArduinoFuoco
       }
       else
       {
-        throw std::out_of_range ("There is no room for more circulators in this controller.");
+        #if (AF_DEBUG == 1)
+          Serial.println("ArduinoFuoco::Entity::HeatController::addCirculator - There is no room for more circulators in this controller.");
+        #endif
       }
     }
 

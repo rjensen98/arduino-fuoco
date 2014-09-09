@@ -37,13 +37,13 @@ SUITE(TestAFTime)
   TEST(toString_Default)
   {
     AFTime time;
-    CHECK_EQUAL("12:00 am", time.toString());
+    CHECK_EQUAL(String("12:00 am"), time.toString());
   }
 
   TEST(toString_Custom)
   {
     AFTime time(9, 18, false);
-    CHECK_EQUAL("09:18 am", time.toString());
+    CHECK_EQUAL(String("09:18 am"), time.toString());
   }
 
 

@@ -37,6 +37,8 @@
         <VirtualDirectory Name="controllers">
           <File Name="src/main/arduino_fuoco/controllers/HeatController.cpp"/>
           <File Name="src/main/arduino_fuoco/controllers/HeatController.h"/>
+          <File Name="src/main/arduino_fuoco/controllers/MenuController.h"/>
+          <File Name="src/main/arduino_fuoco/controllers/MenuController.cpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="entity">
           <File Name="src/main/arduino_fuoco/entity/Zone.cpp"/>
@@ -66,6 +68,8 @@
   <VirtualDirectory Name="include">
     <File Name="include/Arduino.h"/>
     <File Name="include/Arduino.cpp"/>
+    <File Name="include/WString.cpp"/>
+    <File Name="include/WString.h"/>
   </VirtualDirectory>
   <Settings Type="Static Library">
     <GlobalSettings>

@@ -2,7 +2,6 @@
 #define AFTime_H
 
 #include <ArduinoFuocoAppSettings.h>
-#include <string>
 
 namespace ArduinoFuoco
 {
@@ -20,7 +19,7 @@ namespace ArduinoFuoco
         bool isPm();
         void increment(); //TODO: think about implementing the ++ operator
         void decrement(); //TODO: think about implementing the -- operator
-        std::string toString();
+        String toString();
 
       private:
         byte _hour;

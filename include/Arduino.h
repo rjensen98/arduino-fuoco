@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string>
+#include "WString.h"
 #include "HeatingInterval.h"
 
 #define HIGH 0x1

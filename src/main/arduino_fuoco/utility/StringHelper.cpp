@@ -1,6 +1,4 @@
 #include "StringHelper.h"
-#include <sstream>
-#include <string>
 
 namespace ArduinoFuoco
 {
@@ -16,11 +14,9 @@ namespace ArduinoFuoco
     {
     }
 
-    std::string StringHelper::itoa(const int &i)
+    String StringHelper::itoa(const int &i)
     {
-      std::ostringstream s;
-      s << i;
-      return s.str();
+      return String(i);
     }
 
   }

@@ -1,8 +1,12 @@
 #ifndef ArduinoFuocoAppSettings_h
 #define ArduinoFuocoAppSettings_h
 
-// Declare a 'byte' datatype to be used throughout this library
-typedef unsigned char byte;
+#ifndef Arduino_h
+  // Declare "custom" datatypes (from Arduino) to be used throughout this library
+  #include "WString.h"
+  typedef unsigned char byte;
+#endif
+
 
 // Define application constants
 namespace ArduinoFuoco

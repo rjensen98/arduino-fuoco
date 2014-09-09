@@ -2,7 +2,6 @@
 #define StringHelper_H
 
 #include <ArduinoFuocoAppSettings.h>
-#include <string>
 
 namespace ArduinoFuoco
 {
@@ -15,7 +14,7 @@ namespace ArduinoFuoco
       public:
         StringHelper();
         ~StringHelper();
-        static std::string itoa(const int &i);
+        static String itoa(const int &i);
     };
 
   }

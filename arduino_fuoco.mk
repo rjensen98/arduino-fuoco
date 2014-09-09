@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=RJensen
-Date                   :=09/08/14
+Date                   :=09/09/14
 CodeLitePath           :="C:\apps\CodeLite"
 LinkerName             :="C:/apps/MinGW-4.8.1/bin/g++.exe" 
 SharedObjectLinkerName :="C:/apps/MinGW-4.8.1/bin/g++.exe" -shared -fPIC
@@ -63,7 +63,8 @@ AS       := "C:/apps/MinGW-4.8.1/bin/as.exe"
 ##
 CodeLiteDir:=C:\apps\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:/apps/UnitTest++-1.3
-Objects0=$(IntermediateDirectory)/include_Arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_ZoneSetting.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_TimeDefinition.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_AFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Circulator.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/include_Arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/include_WString.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_MenuController.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_ZoneSetting.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_TimeDefinition.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_AFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Circulator.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) \
+	$(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix) 
 
 
 
@@ -106,6 +107,14 @@ $(IntermediateDirectory)/include_Arduino.cpp$(DependSuffix): include/Arduino.cpp
 $(IntermediateDirectory)/include_Arduino.cpp$(PreprocessSuffix): include/Arduino.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/include_Arduino.cpp$(PreprocessSuffix) "include/Arduino.cpp"
 
+$(IntermediateDirectory)/include_WString.cpp$(ObjectSuffix): include/WString.cpp $(IntermediateDirectory)/include_WString.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/include/WString.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/include_WString.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/include_WString.cpp$(DependSuffix): include/WString.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/include_WString.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/include_WString.cpp$(DependSuffix) -MM "include/WString.cpp"
+
+$(IntermediateDirectory)/include_WString.cpp$(PreprocessSuffix): include/WString.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/include_WString.cpp$(PreprocessSuffix) "include/WString.cpp"
+
 $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix): src/main/arduino_fuoco/controllers/HeatController.cpp $(IntermediateDirectory)/controllers_HeatController.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/controllers/HeatController.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/controllers_HeatController.cpp$(DependSuffix): src/main/arduino_fuoco/controllers/HeatController.cpp
@@ -113,6 +122,14 @@ $(IntermediateDirectory)/controllers_HeatController.cpp$(DependSuffix): src/main
 
 $(IntermediateDirectory)/controllers_HeatController.cpp$(PreprocessSuffix): src/main/arduino_fuoco/controllers/HeatController.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/controllers_HeatController.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/controllers/HeatController.cpp"
+
+$(IntermediateDirectory)/controllers_MenuController.cpp$(ObjectSuffix): src/main/arduino_fuoco/controllers/MenuController.cpp $(IntermediateDirectory)/controllers_MenuController.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/controllers/MenuController.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/controllers_MenuController.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/controllers_MenuController.cpp$(DependSuffix): src/main/arduino_fuoco/controllers/MenuController.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/controllers_MenuController.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/controllers_MenuController.cpp$(DependSuffix) -MM "src/main/arduino_fuoco/controllers/MenuController.cpp"
+
+$(IntermediateDirectory)/controllers_MenuController.cpp$(PreprocessSuffix): src/main/arduino_fuoco/controllers/MenuController.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/controllers_MenuController.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/controllers/MenuController.cpp"
 
 $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix): src/main/arduino_fuoco/entity/Zone.cpp $(IntermediateDirectory)/entity_Zone.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/entity/Zone.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IncludePath)
