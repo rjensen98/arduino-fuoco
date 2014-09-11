@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=RJensen
-Date                   :=09/09/14
+Date                   :=09/11/14
 CodeLitePath           :="C:\apps\CodeLite"
 LinkerName             :="C:/apps/MinGW-4.8.1/bin/g++.exe" 
 SharedObjectLinkerName :="C:/apps/MinGW-4.8.1/bin/g++.exe" -shared -fPIC
@@ -63,8 +63,8 @@ AS       := "C:/apps/MinGW-4.8.1/bin/as.exe"
 ##
 CodeLiteDir:=C:\apps\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:/apps/UnitTest++-1.3
-Objects0=$(IntermediateDirectory)/include_Arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/include_WString.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_MenuController.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_ZoneSetting.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_TimeDefinition.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_AFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Circulator.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/include_Arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/include_WString.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_MenuController.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_ZoneSetting.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_TimeDefinition.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_AFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Circulator.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Menu.cpp$(ObjectSuffix) \
+	$(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix) 
 
 
 
@@ -170,6 +170,14 @@ $(IntermediateDirectory)/entity_Circulator.cpp$(DependSuffix): src/main/arduino_
 
 $(IntermediateDirectory)/entity_Circulator.cpp$(PreprocessSuffix): src/main/arduino_fuoco/entity/Circulator.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/entity_Circulator.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/entity/Circulator.cpp"
+
+$(IntermediateDirectory)/entity_Menu.cpp$(ObjectSuffix): src/main/arduino_fuoco/entity/Menu.cpp $(IntermediateDirectory)/entity_Menu.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/entity/Menu.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/entity_Menu.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/entity_Menu.cpp$(DependSuffix): src/main/arduino_fuoco/entity/Menu.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/entity_Menu.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/entity_Menu.cpp$(DependSuffix) -MM "src/main/arduino_fuoco/entity/Menu.cpp"
+
+$(IntermediateDirectory)/entity_Menu.cpp$(PreprocessSuffix): src/main/arduino_fuoco/entity/Menu.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/entity_Menu.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/entity/Menu.cpp"
 
 $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix): src/main/arduino_fuoco/utility/StringHelper.cpp $(IntermediateDirectory)/utility_StringHelper.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/utility/StringHelper.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) $(IncludePath)

@@ -35,6 +35,7 @@
           <File Name="src/test/arduino_fuoco/entity/testAFTime.cpp"/>
           <File Name="src/test/arduino_fuoco/entity/testZone.cpp"/>
           <File Name="src/test/arduino_fuoco/entity/testCirculator.cpp"/>
+          <File Name="src/test/arduino_fuoco/entity/testMenu.cpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="utility">
           <File Name="src/test/arduino_fuoco/utility/testStringHelper.cpp"/>

@@ -51,6 +51,8 @@
           <File Name="src/main/arduino_fuoco/entity/AFTime.cpp"/>
           <File Name="src/main/arduino_fuoco/entity/Circulator.h"/>
           <File Name="src/main/arduino_fuoco/entity/Circulator.cpp"/>
+          <File Name="src/main/arduino_fuoco/entity/Menu.h"/>
+          <File Name="src/main/arduino_fuoco/entity/Menu.cpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="enums">
           <File Name="src/main/arduino_fuoco/enums/HeatingInterval.h"/>
