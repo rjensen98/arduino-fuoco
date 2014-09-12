@@ -57,6 +57,7 @@
         <VirtualDirectory Name="enums">
           <File Name="src/main/arduino_fuoco/enums/HeatingInterval.h"/>
           <File Name="src/main/arduino_fuoco/enums/CirculatorType.h"/>
+          <File Name="src/main/arduino_fuoco/enums/LCDButtonType.h"/>
         </VirtualDirectory>
         <VirtualDirectory Name="utility">
           <File Name="src/main/arduino_fuoco/utility/StringHelper.h"/>

@@ -2,7 +2,12 @@
 #define MenuController_h
 
 #include <ArduinoFuocoAppSettings.h>
+#include <LCDButtonType.h>
 //#include <LiquidCrystal.h>
+#include <Menu.h>
+
+using namespace ArduinoFuoco::Entity;
+using namespace ArduinoFuoco::Enums;
 
 /*-----( Declare Variables )-----*/
 int lcd_key       = 0;
@@ -27,19 +32,19 @@ namespace ArduinoFuoco
      ***********************************************/
     class MenuController
     {
-      static const byte btnRIGHT = 0;
-      static const byte btnUP    = 1;
-      static const byte btnDOWN  = 2;
-      static const byte btnLEFT  = 3;
-      static const byte btnSELECT= 4;
-      static const byte btnNONE  = 5;
-
       public:
         MenuController();
+        MenuController(byte maxMenuCount);
         ~MenuController();
+        void addMenu(Menu &menu);
+        void handleButton();
 
       private:
-        byte _menuState;
+        byte _currentMenuId;
+        byte _maxMenuCount;
+        byte _menuCount;
+        LCDButtonType::Enum readLCDButtons();
+        Menu** _menus;
     };
 
   }

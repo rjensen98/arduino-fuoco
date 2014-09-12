@@ -2,6 +2,9 @@
 #define AFMenu_h
 
 #include <ArduinoFuocoAppSettings.h>
+#include <LCDButtonType.h>
+
+using namespace ArduinoFuoco::Enums;
 
 typedef byte (*AFMenuHandler)();
 
@@ -21,6 +24,7 @@ namespace ArduinoFuoco
         void setDisplayLine1(String line1);
         void setDisplayLine2(String line2);
         static AFMenuHandler NullHandler();
+        int handleButtonPress(const LCDButtonType::Enum &button);
 
       private:
         String _displayLine1;

@@ -5,6 +5,8 @@
 #include <HeatingInterval.h>
 #include <ZoneSetting.h>
 
+using namespace ArduinoFuoco::Enums;
+
 namespace ArduinoFuoco
 {
   namespace Entity
@@ -24,7 +26,7 @@ namespace ArduinoFuoco
         byte getRelayPin();
         bool isOn();
         ZoneSetting* getZoneSettings();
-        ZoneSetting* getZoneSetting(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval);
+        ZoneSetting* getZoneSetting(const HeatingInterval::Enum &interval);
 
       private:
         byte _number;

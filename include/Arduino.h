@@ -30,6 +30,8 @@ void analogWrite(uint8_t, int);
 void delay(unsigned long);
 unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout);
 
+int abs(int i);
+
 struct SerialPrint
 {
 /*  void print(std::string str);

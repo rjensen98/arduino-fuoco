@@ -20,4 +20,14 @@ int analogRead(uint8_t)
 
 }
 
+void delay(unsigned long)
+{
+
+}
+
+int abs(int i)
+{
+
+}
+
 SerialPrint Serial;

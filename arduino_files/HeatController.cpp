@@ -29,7 +29,7 @@ namespace ArduinoFuoco
 
     void HeatController::addZone(Zone &zone)
     {
-      if ((_zoneCount + 1) < _maxZones)
+      if ((_zoneCount + 1) <= _maxZones)
       {
         _zones[_zoneCount] = &zone;
         _zoneCount++;
@@ -37,14 +37,14 @@ namespace ArduinoFuoco
       else
       {
         #if (AF_DEBUG == 1)
-          Serial.println("ArduinoFuoco::Entity::HeatController::addZone - There is no room for more zones in this controller.");
+          Serial.println("ArduinoFuoco::Controllers::HeatController::addZone - There is no room for more zones in this controller.");
         #endif
       }
     }
 
     void HeatController::addCirculator(Circulator &circ)
     {
-      if ((_circulatorCount + 1) < ArduinoFuoco::AppSettings::MAX_CIRCULATORS)
+      if ((_circulatorCount + 1) <= ArduinoFuoco::AppSettings::MAX_CIRCULATORS)
       {
         _circulators[_circulatorCount] = &circ;
         _circulatorCount++;
@@ -52,7 +52,7 @@ namespace ArduinoFuoco
       else
       {
         #if (AF_DEBUG == 1)
-          Serial.println("ArduinoFuoco::Entity::HeatController::addCirculator - There is no room for more circulators in this controller.");
+          Serial.println("ArduinoFuoco::Controllers::HeatController::addCirculator - There is no room for more circulators in this controller.");
         #endif
       }
     }
@@ -124,7 +124,7 @@ namespace ArduinoFuoco
       if (circ)
       {
         #if (AF_DEBUG == 1)
-          Serial.print("ArduinoFuoco::Entity::HeatController::runCirculator - Running circulator; _zonesRunning = ");
+          Serial.print("ArduinoFuoco::Controllers::HeatController::runCirculator - Running circulator; _zonesRunning = ");
           Serial.println(_zonesRunning, DEC);
         #endif
         circ->run(_zonesRunning == 0);
@@ -132,7 +132,7 @@ namespace ArduinoFuoco
       #if (AF_DEBUG == 1)
         else
         {
-          Serial.println("ArduinoFuoco::Entity::HeatController::runCirculator - Reference to circulator object not found!");
+          Serial.println("ArduinoFuoco::Controllers::HeatController::runCirculator - Reference to circulator object not found!");
         }
       #endif
     }
@@ -140,7 +140,7 @@ namespace ArduinoFuoco
     void HeatController::runPrimaryCirculator()
     {
       #if (AF_DEBUG == 1)
-        Serial.println("ArduinoFuoco::Entity::HeatController::runPrimaryCirculator - Finding primary circulator...");
+        Serial.println("ArduinoFuoco::Controllers::HeatController::runPrimaryCirculator - Finding primary circulator...");
       #endif
       runCirculator(getCirculator(CirculatorType::PRIMARY));
     }
@@ -148,7 +148,7 @@ namespace ArduinoFuoco
     void HeatController::runBoilerCirculator()
     {
       #if (AF_DEBUG == 1)
-        Serial.println("ArduinoFuoco::Entity::HeatController::runPrimaryCirculator - Finding boiler circulator...");
+        Serial.println("ArduinoFuoco::Controllers::HeatController::runPrimaryCirculator - Finding boiler circulator...");
       #endif
       runCirculator(getCirculator(CirculatorType::BOILER));
     }
