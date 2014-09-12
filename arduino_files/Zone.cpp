@@ -24,6 +24,25 @@ namespace ArduinoFuoco
     {
       _zoneSettings = new ZoneSetting[ArduinoFuoco::Enums::HeatingInterval::COUNT];
 
+      // Set up each ZoneSetting interval
+      for (int i = 0; i < ArduinoFuoco::Enums::HeatingInterval::COUNT; i++)
+      {
+        _zoneSettings[i].setInterval((ArduinoFuoco::Enums::HeatingInterval::Enum)i);
+      }
+
+      // Initialize Arduino pins
+      setup();
+    }
+
+    Zone::~Zone()
+    {
+      delete[] _zoneSettings;
+    }
+
+    void Zone::setup()
+    {
+      _isOn = false;
+
       // Initialize the relay pin
       // NOTE: doing this manually rather than calling turnOn() because the initialization of the relay board pins is VERY specific
       digitalWrite(_relayPin, HIGH);
@@ -31,17 +50,6 @@ namespace ArduinoFuoco
 
       // Initialize the thermostat pin
       pinMode(_thermostatPin, INPUT);
-
-      // Set up each ZoneSetting interval
-      for (int i = 0; i < ArduinoFuoco::Enums::HeatingInterval::COUNT; i++)
-      {
-        _zoneSettings[i].setInterval((ArduinoFuoco::Enums::HeatingInterval::Enum)i);
-      }
-    }
-
-    Zone::~Zone()
-    {
-      delete[] _zoneSettings;
     }
 
     byte Zone::getCurrentTemperature()

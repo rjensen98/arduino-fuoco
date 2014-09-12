@@ -29,6 +29,18 @@ namespace ArduinoFuoco
         : _relayPin(relayPin), _thermostatPin(thermostatPin),
           _circulatorType(circType), _isAnalogThermostat(isAnalogThermostat), _isOn(false)
     {
+      // Initialize Arduino pins
+      setup();
+    }
+
+    Circulator::~Circulator()
+    {
+    }
+
+    void Circulator::setup()
+    {
+      _isOn = false;
+
       // Initialize the relay pin
       // NOTE: doing this manually rather than calling turnOn() because the initialization of the relay board pins is VERY specific
       digitalWrite(_relayPin, HIGH);
@@ -39,10 +51,6 @@ namespace ArduinoFuoco
         // Initialize the thermostat pin
         pinMode(_thermostatPin, INPUT);
       }
-    }
-
-    Circulator::~Circulator()
-    {
     }
 
     byte Circulator::getRelayPin()

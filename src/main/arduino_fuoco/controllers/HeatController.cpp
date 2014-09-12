@@ -1,4 +1,5 @@
 #include "HeatController.h"
+#include "Arduino.h"
 #include "Circulator.h"
 #include "CirculatorType.h"
 #include <stdexcept>
@@ -19,12 +20,31 @@ namespace ArduinoFuoco
     {
       _zones = new Zone*[numZones];
       _circulators = new Circulator*[ArduinoFuoco::AppSettings::MAX_CIRCULATORS];
+      setup();
     }
 
     HeatController::~HeatController()
     {
       delete[] _zones;
       delete[] _circulators;
+    }
+
+    void HeatController::setup()
+    {
+      // Reset all the zones
+      for (int i = 0; i < _zoneCount; i++)
+      {
+        _zones[i]->setup();
+      }
+
+      // Reset all the circulators
+      for (int i = 0; i < _circulatorCount; i++)
+      {
+        _circulators[i]->setup();
+      }
+
+      // Wait just a bit for some "cool-off" (relays, pumps, etc.)
+      delay(5000);
     }
 
     void HeatController::addZone(Zone &zone)

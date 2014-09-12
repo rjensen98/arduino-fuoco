@@ -74,4 +74,16 @@ SUITE(TestZone)
     CHECK(!z.isOn());
   }
 
+
+  TEST(setup)
+  {
+    Zone z(1, 5, 10);
+    CHECK(!z.isOn());
+
+    z.turnOn();
+    CHECK(z.isOn());
+
+    z.setup();
+    CHECK(!z.isOn());
+  }
 }

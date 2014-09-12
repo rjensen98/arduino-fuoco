@@ -65,7 +65,7 @@ CodeLiteDir:=C:\apps\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:/apps/UnitTest++-1.3
 Objects0=$(IntermediateDirectory)/test_main.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_AssertException.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_Checks.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_DeferredTestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_DeferredTestResult.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_MemoryOutStream.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_ReportAssert.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_Test.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestDetails.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestList.cpp$(ObjectSuffix) \
 	$(IntermediateDirectory)/test_includes_TestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestReporterStdout.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestResults.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TestRunner.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_TimeConstraint.cpp$(ObjectSuffix) $(IntermediateDirectory)/test_includes_XmlTestReporter.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_testAFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_testZone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_testCirculator.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_testMenu.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/utility_testStringHelper.cpp$(ObjectSuffix) 
+	$(IntermediateDirectory)/utility_testStringHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_testHeatController.cpp$(ObjectSuffix) 
 
 
 
@@ -266,6 +266,14 @@ $(IntermediateDirectory)/utility_testStringHelper.cpp$(DependSuffix): src/test/a
 
 $(IntermediateDirectory)/utility_testStringHelper.cpp$(PreprocessSuffix): src/test/arduino_fuoco/utility/testStringHelper.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/utility_testStringHelper.cpp$(PreprocessSuffix) "src/test/arduino_fuoco/utility/testStringHelper.cpp"
+
+$(IntermediateDirectory)/controllers_testHeatController.cpp$(ObjectSuffix): src/test/arduino_fuoco/controllers/testHeatController.cpp $(IntermediateDirectory)/controllers_testHeatController.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/test/arduino_fuoco/controllers/testHeatController.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/controllers_testHeatController.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/controllers_testHeatController.cpp$(DependSuffix): src/test/arduino_fuoco/controllers/testHeatController.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/controllers_testHeatController.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/controllers_testHeatController.cpp$(DependSuffix) -MM "src/test/arduino_fuoco/controllers/testHeatController.cpp"
+
+$(IntermediateDirectory)/controllers_testHeatController.cpp$(PreprocessSuffix): src/test/arduino_fuoco/controllers/testHeatController.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/controllers_testHeatController.cpp$(PreprocessSuffix) "src/test/arduino_fuoco/controllers/testHeatController.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

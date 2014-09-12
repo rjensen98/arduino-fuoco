@@ -18,6 +18,7 @@ namespace ArduinoFuoco
         Circulator();
         Circulator(byte relayPin, int thermostatPin, CirculatorType::Enum circType, bool isAnalogThermostat=true);
         ~Circulator();
+        void setup();
         byte getRelayPin();
         int getThermostatPin();
         bool isAnalogThermostat();

@@ -16,19 +16,24 @@ namespace ArduinoFuoco
     MenuController::MenuController()
         : _currentMenuId(0), _maxMenuCount(0), _menuCount(0)
     {
-//      LiquidCrystal lcd(8, 9, 4, 5, 6, 7); //These are the pins used on this shield
+      setup();
     }
 
     MenuController::MenuController(byte maxMenuCount)
         : _currentMenuId(0), _maxMenuCount(maxMenuCount), _menuCount(0)
     {
       _menus = new Menu*[maxMenuCount];
-//      LiquidCrystal lcd(8, 9, 4, 5, 6, 7); //These are the pins used on this shield
+      setup();
     }
 
     MenuController::~MenuController()
     {
       delete[] _menus;
+    }
+
+    void MenuController::setup()
+    {
+//      LiquidCrystal lcd(8, 9, 4, 5, 6, 7); //These are the pins used on this shield
     }
 
     void MenuController::addMenu(Menu &menu)

@@ -86,4 +86,15 @@ SUITE(TestCirculator)
    * END run() tests
    * **********************************/
 
+
+  TEST(setup)
+  {
+    Circulator c(0, 5, CirculatorType::BOILER);
+    CHECK(!c.isOn());
+    c.turnOn();
+    CHECK(c.isOn());
+
+    c.setup();
+    CHECK(!c.isOn());
+  }
 }

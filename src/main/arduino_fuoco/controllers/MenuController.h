@@ -36,6 +36,7 @@ namespace ArduinoFuoco
         MenuController();
         MenuController(byte maxMenuCount);
         ~MenuController();
+        void setup();
         void addMenu(Menu &menu);
         void handleButton();
 

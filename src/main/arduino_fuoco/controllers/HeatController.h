@@ -19,6 +19,7 @@ namespace ArduinoFuoco
       public:
         HeatController(const byte numZones);
         ~HeatController();
+        void setup();
         void addZone(Zone &zone);
         void addCirculator(Circulator &zone);
         void heatHouse();

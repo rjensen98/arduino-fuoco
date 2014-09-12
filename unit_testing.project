@@ -40,7 +40,9 @@
         <VirtualDirectory Name="utility">
           <File Name="src/test/arduino_fuoco/utility/testStringHelper.cpp"/>
         </VirtualDirectory>
-        <VirtualDirectory Name="controllers"/>
+        <VirtualDirectory Name="controllers">
+          <File Name="src/test/arduino_fuoco/controllers/testHeatController.cpp"/>
+        </VirtualDirectory>
       </VirtualDirectory>
       <VirtualDirectory Name="test_includes">
         <File Name="src/test/test_includes/AssertException.cpp"/>

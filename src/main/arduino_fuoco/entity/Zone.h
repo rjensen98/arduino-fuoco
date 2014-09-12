@@ -17,6 +17,7 @@ namespace ArduinoFuoco
         Zone();
         Zone(const byte &number, const byte &thermostatPin, const byte &relayPin);
         ~Zone();
+        void setup();
         void turnOn();
         void turnOff();
         byte getCurrentTemperature();
