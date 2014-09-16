@@ -30,6 +30,16 @@ namespace ArduinoFuoco
       return returnMe;
     }
 
+    String Menu::getDisplayLine1()
+    {
+      return _displayLine1;
+    }
+
+    String Menu::getDisplayLine2()
+    {
+      return _displayLine2;
+    }
+
     void Menu::setDisplayLine1(String line1)
     {
       _displayLine1 = line1;

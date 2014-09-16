@@ -1,10 +1,13 @@
 #include "MenuController.h"
 #include "Arduino.h"
 #include "LCDButtonType.h"
+#include "LiquidCrystal.h"
 #include "Menu.h"
+#include "MenuInitializer.h"
 
 using namespace ArduinoFuoco::Entity;
 using namespace ArduinoFuoco::Enums;
+using namespace ArduinoFuoco::Utility;
 
 namespace ArduinoFuoco
 {
@@ -14,13 +17,13 @@ namespace ArduinoFuoco
 
     // This shouldn't ever be called. Use an alternate override
     MenuController::MenuController()
-        : _currentMenuId(0), _maxMenuCount(0), _menuCount(0)
+        : _currentMenuId(0), _maxMenuCount(0), _menuCount(0), _lcd(8, 9, 4, 5, 6, 7)
     {
       setup();
     }
 
     MenuController::MenuController(byte maxMenuCount)
-        : _currentMenuId(0), _maxMenuCount(maxMenuCount), _menuCount(0)
+        : _currentMenuId(0), _maxMenuCount(maxMenuCount), _menuCount(0), _lcd(8, 9, 4, 5, 6, 7)
     {
       _menus = new Menu*[maxMenuCount];
       setup();
@@ -33,7 +36,12 @@ namespace ArduinoFuoco
 
     void MenuController::setup()
     {
-//      LiquidCrystal lcd(8, 9, 4, 5, 6, 7); //These are the pins used on this shield
+      _lcd.begin(16, 2);
+    }
+
+    void MenuController::addMenu(Menu* menu)
+    {
+      addMenu(*menu);
     }
 
     void MenuController::addMenu(Menu &menu)
@@ -49,6 +57,14 @@ namespace ArduinoFuoco
           Serial.println("ArduinoFuoco::Controllers::MenuController::addMenu - There is no room for more menus in this controller.");
         #endif
       }
+    }
+
+    void MenuController::initializeMenus()
+    {
+      #if (AF_DEBUG == 1)
+        Serial.println("ArduinoFuoco::Controllers::MenuController::initializeMenus - Setting up menus.");
+      #endif
+      MenuInitializer::setupMenus(*this);
     }
 
     void MenuController::handleButton()
@@ -99,6 +115,14 @@ namespace ArduinoFuoco
       if (adc_key_in < 555)  return LCDButtonType::LEFT;
       if (adc_key_in < 790)  return LCDButtonType::SELECT;
       return LCDButtonType::NONE;  // when all others fail, return this...
+    }
+
+    void MenuController::renderMenu()
+    {
+      _lcd.setCursor(0, 0);
+      _lcd.print(_menus[_currentMenuId]->getDisplayLine1());
+      _lcd.setCursor(0, 1);
+      _lcd.print(_menus[_currentMenuId]->getDisplayLine2());
     }
 
   }

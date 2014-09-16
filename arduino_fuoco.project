@@ -64,6 +64,8 @@
           <File Name="src/main/arduino_fuoco/utility/StringHelper.cpp"/>
           <File Name="src/main/arduino_fuoco/utility/AnalogHelper.h"/>
           <File Name="src/main/arduino_fuoco/utility/AnalogHelper.cpp"/>
+          <File Name="src/main/arduino_fuoco/utility/MenuInitializer.h"/>
+          <File Name="src/main/arduino_fuoco/utility/MenuInitializer.cpp"/>
         </VirtualDirectory>
       </VirtualDirectory>
     </VirtualDirectory>
@@ -73,6 +75,8 @@
     <File Name="include/Arduino.cpp"/>
     <File Name="include/WString.cpp"/>
     <File Name="include/WString.h"/>
+    <File Name="include/LiquidCrystal.h"/>
+    <File Name="include/LiquidCrystal.cpp"/>
   </VirtualDirectory>
   <Settings Type="Static Library">
     <GlobalSettings>

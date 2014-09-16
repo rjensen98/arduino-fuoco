@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=RJensen
-Date                   :=09/12/14
+Date                   :=09/16/14
 CodeLitePath           :="C:\apps\CodeLite"
 LinkerName             :="C:/apps/MinGW-4.8.1/bin/g++.exe" 
 SharedObjectLinkerName :="C:/apps/MinGW-4.8.1/bin/g++.exe" -shared -fPIC
@@ -63,8 +63,8 @@ AS       := "C:/apps/MinGW-4.8.1/bin/as.exe"
 ##
 CodeLiteDir:=C:\apps\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:/apps/UnitTest++-1.3
-Objects0=$(IntermediateDirectory)/include_Arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/include_WString.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_MenuController.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_ZoneSetting.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_TimeDefinition.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_AFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Circulator.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Menu.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/include_Arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/include_WString.cpp$(ObjectSuffix) $(IntermediateDirectory)/include_LiquidCrystal.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_MenuController.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_ZoneSetting.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_TimeDefinition.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_AFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Circulator.cpp$(ObjectSuffix) \
+	$(IntermediateDirectory)/entity_Menu.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_MenuInitializer.cpp$(ObjectSuffix) 
 
 
 
@@ -114,6 +114,14 @@ $(IntermediateDirectory)/include_WString.cpp$(DependSuffix): include/WString.cpp
 
 $(IntermediateDirectory)/include_WString.cpp$(PreprocessSuffix): include/WString.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/include_WString.cpp$(PreprocessSuffix) "include/WString.cpp"
+
+$(IntermediateDirectory)/include_LiquidCrystal.cpp$(ObjectSuffix): include/LiquidCrystal.cpp $(IntermediateDirectory)/include_LiquidCrystal.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/include/LiquidCrystal.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/include_LiquidCrystal.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/include_LiquidCrystal.cpp$(DependSuffix): include/LiquidCrystal.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/include_LiquidCrystal.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/include_LiquidCrystal.cpp$(DependSuffix) -MM "include/LiquidCrystal.cpp"
+
+$(IntermediateDirectory)/include_LiquidCrystal.cpp$(PreprocessSuffix): include/LiquidCrystal.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/include_LiquidCrystal.cpp$(PreprocessSuffix) "include/LiquidCrystal.cpp"
 
 $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix): src/main/arduino_fuoco/controllers/HeatController.cpp $(IntermediateDirectory)/controllers_HeatController.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/controllers/HeatController.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IncludePath)
@@ -194,6 +202,14 @@ $(IntermediateDirectory)/utility_AnalogHelper.cpp$(DependSuffix): src/main/ardui
 
 $(IntermediateDirectory)/utility_AnalogHelper.cpp$(PreprocessSuffix): src/main/arduino_fuoco/utility/AnalogHelper.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/utility_AnalogHelper.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/utility/AnalogHelper.cpp"
+
+$(IntermediateDirectory)/utility_MenuInitializer.cpp$(ObjectSuffix): src/main/arduino_fuoco/utility/MenuInitializer.cpp $(IntermediateDirectory)/utility_MenuInitializer.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/utility/MenuInitializer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/utility_MenuInitializer.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/utility_MenuInitializer.cpp$(DependSuffix): src/main/arduino_fuoco/utility/MenuInitializer.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/utility_MenuInitializer.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/utility_MenuInitializer.cpp$(DependSuffix) -MM "src/main/arduino_fuoco/utility/MenuInitializer.cpp"
+
+$(IntermediateDirectory)/utility_MenuInitializer.cpp$(PreprocessSuffix): src/main/arduino_fuoco/utility/MenuInitializer.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/utility_MenuInitializer.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/utility/MenuInitializer.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

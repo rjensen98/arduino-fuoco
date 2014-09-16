@@ -21,6 +21,8 @@ namespace ArduinoFuoco
         Menu(String line1, String line2, AFMenuHandler handleUp, AFMenuHandler handleDown,
             AFMenuHandler handleLeft, AFMenuHandler handleRight, AFMenuHandler handleEnter);
         ~Menu();
+        String getDisplayLine1();
+        String getDisplayLine2();
         void setDisplayLine1(String line1);
         void setDisplayLine2(String line2);
         static AFMenuHandler NullHandler();
