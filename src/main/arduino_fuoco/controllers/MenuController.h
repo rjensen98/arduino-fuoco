@@ -9,11 +9,6 @@
 using namespace ArduinoFuoco::Entity;
 using namespace ArduinoFuoco::Enums;
 
-/*-----( Declare Variables )-----*/
-int lcd_key       = 0;
-int adc_key_in    = 0;
-int adc_key_prev  = 0;
-
 namespace ArduinoFuoco
 {
 
@@ -37,6 +32,8 @@ namespace ArduinoFuoco
         byte _maxMenuCount;
         byte _menuCount;
         Menu** _menus;
+        LCDButtonType::Enum _previousButton;
+        LCDButtonType::Enum _buttonPressed;
         LCDButtonType::Enum readLCDButtons();
         void renderMenu();
 

@@ -69,14 +69,15 @@ namespace ArduinoFuoco
 
     void MenuController::handleButton()
     {
-      LCDButtonType::Enum buttonPressed = readLCDButtons();
-      if (buttonPressed == LCDButtonType::NONE)
+      _previousButton = _buttonPressed;
+      _buttonPressed = readLCDButtons();
+      if (_buttonPressed == LCDButtonType::NONE || _previousButton == _buttonPressed)
       {
         return;
       }
 
       Menu* menu = _menus[_currentMenuId];
-      int newMenuId = menu->handleButtonPress(buttonPressed);
+      int newMenuId = menu->handleButtonPress(_buttonPressed);
       if (newMenuId > -1)
       {
         _currentMenuId = newMenuId;
@@ -96,7 +97,7 @@ namespace ArduinoFuoco
      ****************************************/
     LCDButtonType::Enum MenuController::readLCDButtons()
     {
-      adc_key_in = analogRead(0);      // read the value from the sensor
+      int adc_key_in = analogRead(0);      // read the value from the sensor
       delay(5); //switch debounce delay. Increase this delay if incorrect switch selections are returned.
       int k = (analogRead(0) - adc_key_in); //gives the button a slight range to allow for a little contact resistance noise
       if (5 < abs(k)) return LCDButtonType::NONE;  // double checks the keypress. If the two readings are not equal +/-k value after debounce delay, it tries again.
