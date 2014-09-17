@@ -15,7 +15,6 @@ namespace ArduinoFuoco
     class Circulator
     {
       public:
-        Circulator();
         Circulator(byte relayPin, int thermostatPin, CirculatorType::Enum circType, bool isAnalogThermostat=true);
         ~Circulator();
         void setup();

@@ -9,10 +9,6 @@ namespace ArduinoFuoco
   namespace Entity
   {
 
-    Menu::Menu()
-    {
-    }
-
     Menu::~Menu()
     {
     }

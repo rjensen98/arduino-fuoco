@@ -12,12 +12,6 @@ namespace ArduinoFuoco
   namespace Entity
   {
 
-    // This constructor should not be called directly; it's here merely for initialization in an array
-    Circulator::Circulator()
-        : _relayPin(0), _thermostatPin(-1), _circulatorType(CirculatorType::PRIMARY), _isOn(false)
-    {
-    }
-
     /*********************************************************************************************
      * Circulators can exists without thermostat regulation. In these cases, set the thermostat
      * pin to -1.

@@ -17,7 +17,6 @@ namespace ArduinoFuoco
     class Menu
     {
       public:
-        Menu();
         Menu(String line1, String line2, AFMenuHandler handleUp, AFMenuHandler handleDown,
             AFMenuHandler handleLeft, AFMenuHandler handleRight, AFMenuHandler handleEnter);
         ~Menu();

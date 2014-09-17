@@ -14,7 +14,6 @@ namespace ArduinoFuoco
     class Zone
     {
       public:
-        Zone();
         Zone(const byte &number, const byte &thermostatPin, const byte &relayPin);
         ~Zone();
         void setup();

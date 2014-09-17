@@ -18,7 +18,6 @@ namespace ArduinoFuoco
     class MenuController
     {
       public:
-        MenuController();
         MenuController(byte maxMenuCount);
         ~MenuController();
         void setup();

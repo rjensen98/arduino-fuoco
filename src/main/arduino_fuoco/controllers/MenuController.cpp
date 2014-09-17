@@ -15,13 +15,6 @@ namespace ArduinoFuoco
   namespace Controllers
   {
 
-    // This shouldn't ever be called. Use an alternate override
-    MenuController::MenuController()
-        : _currentMenuId(0), _maxMenuCount(0), _menuCount(0), _lcd(8, 9, 4, 5, 6, 7)
-    {
-      setup();
-    }
-
     MenuController::MenuController(byte maxMenuCount)
         : _currentMenuId(0), _maxMenuCount(maxMenuCount), _menuCount(0), _lcd(8, 9, 4, 5, 6, 7)
     {

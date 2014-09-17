@@ -13,12 +13,6 @@ namespace ArduinoFuoco
   namespace Entity
   {
 
-    // This constructor should not be called directly; it's here merely for initialization in an array
-    Zone::Zone()
-        : _number(0), _thermostatPin(0), _relayPin(0), _isOn(false)
-    {
-    }
-
     Zone::Zone(const byte &number, const byte &thermostatPin, const byte &relayPin)
         : _number(number), _thermostatPin(thermostatPin), _relayPin(relayPin), _isOn(false)
     {
