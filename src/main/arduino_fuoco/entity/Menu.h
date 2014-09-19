@@ -3,10 +3,12 @@
 
 #include <ArduinoFuocoAppSettings.h>
 #include <LCDButtonType.h>
+#include <MenuData.h>
 
+using namespace ArduinoFuoco::Entity;
 using namespace ArduinoFuoco::Enums;
 
-typedef byte (*AFMenuHandler)();
+typedef byte (*AFMenuHandler)(MenuData &data);
 
 namespace ArduinoFuoco
 {
@@ -24,8 +26,9 @@ namespace ArduinoFuoco
         String getDisplayLine2();
         void setDisplayLine1(String line1);
         void setDisplayLine2(String line2);
+//        static byte (*NullHandler())();
         static AFMenuHandler NullHandler();
-        int handleButtonPress(const LCDButtonType::Enum &button);
+        int handleButtonPress(const LCDButtonType::Enum &button, MenuData &data);
 
       private:
         String _displayLine1;

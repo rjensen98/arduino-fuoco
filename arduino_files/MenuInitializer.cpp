@@ -1,5 +1,6 @@
 #include "MenuInitializer.h"
 #include "Menu.h"
+#include "MenuData.h"
 #include "MenuController.h"
 
 using namespace ArduinoFuoco::Controllers;
@@ -13,16 +14,16 @@ namespace ArduinoFuoco
 
     namespace MenuHandlers
     {
-      byte homeUp() { return 4; }
-      byte homeDown() { return 1; }
-      byte currentUp() { return 0; }
-      byte currentDown() { return 2; }
-      byte zoneSetupUp() { return 1; }
-      byte zoneSetupDown() { return 3; }
-      byte dateUp() { return 2; }
-      byte dateDown() { return 4; }
-      byte advancedUp() { return 3; }
-      byte advancedDown() { return 0; }
+      byte homeUp(MenuData &data) { return 4; }
+      byte homeDown(MenuData &data) { return 1; }
+      byte currentUp(MenuData &data) { return 0; }
+      byte currentDown(MenuData &data) { return 2; }
+      byte zoneSetupUp(MenuData &data) { return 1; }
+      byte zoneSetupDown(MenuData &data) { return 3; }
+      byte dateUp(MenuData &data) { return 2; }
+      byte dateDown(MenuData &data) { return 4; }
+      byte advancedUp(MenuData &data) { return 3; }
+      byte advancedDown(MenuData &data) { return 0; }
     }
 
     MenuInitializer::MenuInitializer()

@@ -1,6 +1,9 @@
 #include "Menu.h"
+#include "MenuController.h"
+#include "MenuData.h"
 #include "LCDButtonType.h"
 
+using namespace ArduinoFuoco::Entity;
 using namespace ArduinoFuoco::Enums;
 
 namespace ArduinoFuoco
@@ -46,7 +49,7 @@ namespace ArduinoFuoco
       _displayLine2 = line2;
     }
 
-    int Menu::handleButtonPress(const LCDButtonType::Enum &button)
+    int Menu::handleButtonPress(const LCDButtonType::Enum &button, MenuData &data)
     {
       switch (button)
       {
@@ -57,7 +60,7 @@ namespace ArduinoFuoco
           #endif
           if (_handleRight)
           {
-            return _handleRight();
+            return _handleRight(data);
           }
           else
           {
@@ -74,7 +77,7 @@ namespace ArduinoFuoco
           #endif
           if (_handleLeft)
           {
-            return _handleLeft();
+            return _handleLeft(data);
           }
           else
           {
@@ -91,7 +94,7 @@ namespace ArduinoFuoco
           #endif
           if (_handleUp)
           {
-            return _handleUp();
+            return _handleUp(data);
           }
           else
           {
@@ -108,7 +111,7 @@ namespace ArduinoFuoco
           #endif
           if (_handleDown)
           {
-            return _handleDown();
+            return _handleDown(data);
           }
           else
           {
@@ -125,7 +128,7 @@ namespace ArduinoFuoco
           #endif
           if (_handleEnter)
           {
-            return _handleEnter();
+            return _handleEnter(data);
           }
           else
           {

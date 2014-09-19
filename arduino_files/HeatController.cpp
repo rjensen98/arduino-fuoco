@@ -5,10 +5,12 @@
 #include <stdexcept>
 #include "TimeDefinition.h"
 #include "Zone.h"
+#include "ZoneListHelper.h"
 #include "ZoneSetting.h"
 
 using namespace ArduinoFuoco::Entity;
 using namespace ArduinoFuoco::Enums;
+using namespace ArduinoFuoco::Utility;
 
 namespace ArduinoFuoco
 {
@@ -98,21 +100,27 @@ namespace ArduinoFuoco
       }
     }
 
-    Zone* HeatController::getZone(byte zoneId)
+    Zone* HeatController::getZone(const byte &zoneId)
     {
-      Zone* z = 0;
-      for (int i = 0; i < _zoneCount; i++)
-      {
-        if (_zones[i]->getNumber() == zoneId)
-        {
-          z = _zones[i];
-          return z;
-        }
-      }
-      return z;
+      return ZoneListHelper::getZone(_zones, _zoneCount, zoneId);
     }
 
-    Circulator* HeatController::getCirculator(CirculatorType::Enum circType)
+    Zone** HeatController::getZones()
+    {
+      return _zones;
+    }
+
+    byte HeatController::getZoneCount()
+    {
+      return _zoneCount;
+    }
+
+    byte* HeatController::getZoneCountRef()
+    {
+      return &_zoneCount;
+    }
+
+    Circulator* HeatController::getCirculator(const CirculatorType::Enum &circType)
     {
       Circulator* c = 0;
       for (int i = 0; i < _circulatorCount; i++)

@@ -39,6 +39,7 @@
         </VirtualDirectory>
         <VirtualDirectory Name="utility">
           <File Name="src/test/arduino_fuoco/utility/testStringHelper.cpp"/>
+          <File Name="src/test/arduino_fuoco/utility/testZoneListHelper.cpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="controllers">
           <File Name="src/test/arduino_fuoco/controllers/testHeatController.cpp"/>

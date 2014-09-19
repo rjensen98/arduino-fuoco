@@ -1,5 +1,6 @@
 #include "MenuController.h"
 #include "Arduino.h"
+#include "HeatController.h"
 #include "LCDButtonType.h"
 #include "LiquidCrystal.h"
 #include "Menu.h"
@@ -15,8 +16,9 @@ namespace ArduinoFuoco
   namespace Controllers
   {
 
-    MenuController::MenuController(byte maxMenuCount)
-        : _currentMenuId(0), _maxMenuCount(maxMenuCount), _menuCount(0), _lcd(8, 9, 4, 5, 6, 7)
+    MenuController::MenuController(const byte maxMenuCount, HeatController* zoneInformation)
+        : _currentMenuId(0), _maxMenuCount(maxMenuCount), _menuCount(0), _lcd(8, 9, 4, 5, 6, 7),
+            _menuData(zoneInformation->getZones(), zoneInformation->getZoneCountRef())
     {
       _menus = new Menu*[maxMenuCount];
       setup();
@@ -24,6 +26,13 @@ namespace ArduinoFuoco
 
     MenuController::~MenuController()
     {
+      // Deallocate the space taken by each menu
+      for (int i = 0; i < _menuCount; i++)
+      {
+        delete _menus[i];
+      }
+
+      // Deallocate the space taken by the menu array
       delete[] _menus;
     }
 
@@ -70,7 +79,7 @@ namespace ArduinoFuoco
       }
 
       Menu* menu = _menus[_currentMenuId];
-      int newMenuId = menu->handleButtonPress(_buttonPressed);
+      int newMenuId = menu->handleButtonPress(_buttonPressed, _menuData);
       if (newMenuId > -1)
       {
         _currentMenuId = newMenuId;

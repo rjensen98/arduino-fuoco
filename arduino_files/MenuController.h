@@ -2,9 +2,11 @@
 #define MenuController_h
 
 #include <ArduinoFuocoAppSettings.h>
+#include <HeatController.h>
 #include <LCDButtonType.h>
 #include <LiquidCrystal.h>
 #include <Menu.h>
+#include <MenuData.h>
 
 using namespace ArduinoFuoco::Entity;
 using namespace ArduinoFuoco::Enums;
@@ -18,7 +20,7 @@ namespace ArduinoFuoco
     class MenuController
     {
       public:
-        MenuController(byte maxMenuCount);
+        MenuController(const byte maxMenuCount, HeatController* zoneInformation);
         ~MenuController();
         void setup();
         void addMenu(Menu &menu);
@@ -31,6 +33,7 @@ namespace ArduinoFuoco
         byte _maxMenuCount;
         byte _menuCount;
         Menu** _menus;
+        MenuData _menuData;
         LCDButtonType::Enum _previousButton;
         LCDButtonType::Enum _buttonPressed;
         LCDButtonType::Enum readLCDButtons();

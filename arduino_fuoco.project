@@ -53,6 +53,8 @@
           <File Name="src/main/arduino_fuoco/entity/Circulator.cpp"/>
           <File Name="src/main/arduino_fuoco/entity/Menu.h"/>
           <File Name="src/main/arduino_fuoco/entity/Menu.cpp"/>
+          <File Name="src/main/arduino_fuoco/entity/MenuData.h"/>
+          <File Name="src/main/arduino_fuoco/entity/MenuData.cpp"/>
         </VirtualDirectory>
         <VirtualDirectory Name="enums">
           <File Name="src/main/arduino_fuoco/enums/HeatingInterval.h"/>
@@ -66,6 +68,8 @@
           <File Name="src/main/arduino_fuoco/utility/AnalogHelper.cpp"/>
           <File Name="src/main/arduino_fuoco/utility/MenuInitializer.h"/>
           <File Name="src/main/arduino_fuoco/utility/MenuInitializer.cpp"/>
+          <File Name="src/main/arduino_fuoco/utility/ZoneListHelper.h"/>
+          <File Name="src/main/arduino_fuoco/utility/ZoneListHelper.cpp"/>
         </VirtualDirectory>
       </VirtualDirectory>
     </VirtualDirectory>

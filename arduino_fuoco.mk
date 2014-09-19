@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=RJensen
-Date                   :=09/17/14
+Date                   :=09/19/14
 CodeLitePath           :="C:\apps\CodeLite"
 LinkerName             :="C:/apps/MinGW-4.8.1/bin/g++.exe" 
 SharedObjectLinkerName :="C:/apps/MinGW-4.8.1/bin/g++.exe" -shared -fPIC
@@ -64,7 +64,7 @@ AS       := "C:/apps/MinGW-4.8.1/bin/as.exe"
 CodeLiteDir:=C:\apps\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:/apps/UnitTest++-1.3
 Objects0=$(IntermediateDirectory)/include_Arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/include_WString.cpp$(ObjectSuffix) $(IntermediateDirectory)/include_LiquidCrystal.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_MenuController.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_ZoneSetting.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_TimeDefinition.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_AFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Circulator.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/entity_Menu.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_MenuInitializer.cpp$(ObjectSuffix) 
+	$(IntermediateDirectory)/entity_Menu.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_MenuData.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_MenuInitializer.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_ZoneListHelper.cpp$(ObjectSuffix) 
 
 
 
@@ -187,6 +187,14 @@ $(IntermediateDirectory)/entity_Menu.cpp$(DependSuffix): src/main/arduino_fuoco/
 $(IntermediateDirectory)/entity_Menu.cpp$(PreprocessSuffix): src/main/arduino_fuoco/entity/Menu.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/entity_Menu.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/entity/Menu.cpp"
 
+$(IntermediateDirectory)/entity_MenuData.cpp$(ObjectSuffix): src/main/arduino_fuoco/entity/MenuData.cpp $(IntermediateDirectory)/entity_MenuData.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/entity/MenuData.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/entity_MenuData.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/entity_MenuData.cpp$(DependSuffix): src/main/arduino_fuoco/entity/MenuData.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/entity_MenuData.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/entity_MenuData.cpp$(DependSuffix) -MM "src/main/arduino_fuoco/entity/MenuData.cpp"
+
+$(IntermediateDirectory)/entity_MenuData.cpp$(PreprocessSuffix): src/main/arduino_fuoco/entity/MenuData.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/entity_MenuData.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/entity/MenuData.cpp"
+
 $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix): src/main/arduino_fuoco/utility/StringHelper.cpp $(IntermediateDirectory)/utility_StringHelper.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/utility/StringHelper.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/utility_StringHelper.cpp$(DependSuffix): src/main/arduino_fuoco/utility/StringHelper.cpp
@@ -210,6 +218,14 @@ $(IntermediateDirectory)/utility_MenuInitializer.cpp$(DependSuffix): src/main/ar
 
 $(IntermediateDirectory)/utility_MenuInitializer.cpp$(PreprocessSuffix): src/main/arduino_fuoco/utility/MenuInitializer.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/utility_MenuInitializer.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/utility/MenuInitializer.cpp"
+
+$(IntermediateDirectory)/utility_ZoneListHelper.cpp$(ObjectSuffix): src/main/arduino_fuoco/utility/ZoneListHelper.cpp $(IntermediateDirectory)/utility_ZoneListHelper.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/utility/ZoneListHelper.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/utility_ZoneListHelper.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/utility_ZoneListHelper.cpp$(DependSuffix): src/main/arduino_fuoco/utility/ZoneListHelper.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/utility_ZoneListHelper.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/utility_ZoneListHelper.cpp$(DependSuffix) -MM "src/main/arduino_fuoco/utility/ZoneListHelper.cpp"
+
+$(IntermediateDirectory)/utility_ZoneListHelper.cpp$(PreprocessSuffix): src/main/arduino_fuoco/utility/ZoneListHelper.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/utility_ZoneListHelper.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/utility/ZoneListHelper.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
