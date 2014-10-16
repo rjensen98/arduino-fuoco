@@ -11,10 +11,6 @@ namespace ArduinoFuoco
     {
     }
 
-    MenuData::~MenuData()
-    {
-    }
-
   }
 
 }

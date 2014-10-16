@@ -16,7 +16,6 @@ namespace ArduinoFuoco
     {
       public:
         MenuData(Zone** zones, byte* zoneCount);
-        ~MenuData();
 
       private:
         byte _currentMenuId;
