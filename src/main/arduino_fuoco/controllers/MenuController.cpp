@@ -120,6 +120,7 @@ namespace ArduinoFuoco
 
     void MenuController::renderMenu()
     {
+      _menus[_currentMenuId]->renderDisplay(_menuData);
       _lcd.setCursor(0, 0);
       _lcd.print(_menus[_currentMenuId]->getDisplayLine1());
       _lcd.setCursor(0, 1);

@@ -23,10 +23,29 @@ namespace ArduinoFuoco
     {
     }
 
+    Menu::Menu(String line1, String line2, AFMenuHandler handleUp, AFMenuHandler handleDown,
+            AFMenuHandler handleLeft, AFMenuHandler handleRight, AFMenuHandler handleEnter,
+            AFCustomDisplayHandler customDisplay)
+        : _displayLine1(line1), _displayLine2(line2), _handleUp(handleUp), _handleDown(handleDown),
+          _handleLeft(handleLeft), _handleRight(handleRight), _handleEnter(handleEnter), _handleCustomDisplay(customDisplay)
+    {
+    }
+
     AFMenuHandler Menu::NullHandler()
     {
       AFMenuHandler returnMe = 0;
       return returnMe;
+    }
+
+    void Menu::renderDisplay(const MenuData &data)
+    {
+      #if (AF_DEBUG == 1)
+        Serial.println("ArduinoFuoco::Entity::Menu::renderCustomDisplay - Rendering custom display for this menu");
+      #endif
+      if (_handleCustomDisplay)
+      {
+        _handleCustomDisplay(data, *this);
+      }
     }
 
     String Menu::getDisplayLine1()

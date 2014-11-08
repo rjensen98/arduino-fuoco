@@ -21,13 +21,16 @@ namespace ArduinoFuoco
       public:
         Menu(String line1, String line2, AFMenuHandler handleUp, AFMenuHandler handleDown,
             AFMenuHandler handleLeft, AFMenuHandler handleRight, AFMenuHandler handleEnter);
+        Menu(String line1, String line2, AFMenuHandler handleUp, AFMenuHandler handleDown,
+            AFMenuHandler handleLeft, AFMenuHandler handleRight, AFMenuHandler handleEnter,
+            void (*customDisplay)(const MenuData &data, Menu &menu));  // AFCustomDisplayHandler customDisplay
         ~Menu();
         String getDisplayLine1();
         String getDisplayLine2();
         void setDisplayLine1(String line1);
         void setDisplayLine2(String line2);
-//        static byte (*NullHandler())();
         static AFMenuHandler NullHandler();
+        void renderDisplay(const MenuData &data);
         int handleButtonPress(const LCDButtonType::Enum &button, MenuData &data);
 
       private:
@@ -38,10 +41,12 @@ namespace ArduinoFuoco
         AFMenuHandler _handleLeft;
         AFMenuHandler _handleRight;
         AFMenuHandler _handleEnter;
+        void (*_handleCustomDisplay)(const MenuData &data, Menu &menu);  // AFCustomDisplayHandler _handleCustomDisplay
     };
 
   }
 
 }
 
+typedef void (*AFCustomDisplayHandler)(const MenuData &data, Menu &menu);
 #endif // AFMenu_h
