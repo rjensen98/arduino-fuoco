@@ -46,7 +46,7 @@ namespace ArduinoFuoco
       pinMode(_thermostatPin, INPUT);
     }
 
-    byte Zone::getCurrentTemperature()
+    byte Zone::getCurrentTemperature() const
     {
       int analogVal = analogRead(_thermostatPin);
       #if (AF_DEBUG == 1)
@@ -58,22 +58,22 @@ namespace ArduinoFuoco
       return AnalogHelper::convertAnalogToTemp(analogVal);
     }
 
-    byte Zone::getNumber()
+    byte Zone::getNumber() const
     {
       return _number;
     }
 
-    byte Zone::getThermostatPin()
+    byte Zone::getThermostatPin() const
     {
       return _thermostatPin;
     }
 
-    byte Zone::getRelayPin()
+    byte Zone::getRelayPin() const
     {
       return _relayPin;
     }
 
-    bool Zone::isOn()
+    bool Zone::isOn() const
     {
       return _isOn;
     }

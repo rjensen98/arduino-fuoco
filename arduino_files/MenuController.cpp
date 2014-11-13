@@ -17,7 +17,7 @@ namespace ArduinoFuoco
   {
 
     MenuController::MenuController(const byte maxMenuCount, HeatController* zoneInformation)
-        : _currentMenuId(0), _maxMenuCount(maxMenuCount), _menuCount(0), _lcd(8, 9, 4, 5, 6, 7),
+        : _maxMenuCount(maxMenuCount), _menuCount(0), _lcd(8, 9, 4, 5, 6, 7),
             _menuData(zoneInformation->getZones(), zoneInformation->getZoneCountRef())
     {
       _menus = new Menu*[maxMenuCount];
@@ -78,11 +78,12 @@ namespace ArduinoFuoco
         return;
       }
 
-      Menu* menu = _menus[_currentMenuId];
+      // A new / different button has been pressed. Handle the press.
+      Menu* menu = _menus[_menuData.getCurrentMenuId()];
       int newMenuId = menu->handleButtonPress(_buttonPressed, _menuData);
       if (newMenuId > -1)
       {
-        _currentMenuId = newMenuId;
+        _menuData.setCurrentMenuId(newMenuId);
       }
       #if (AF_DEBUG == 1)
         else
@@ -90,6 +91,9 @@ namespace ArduinoFuoco
           Serial.println("ArduinoFuoco::Controllers::MenuController::handleButton - Problem handling button press. Not changing current menu.");
         }
       #endif
+
+      // ...and render the menu reflecting any changes since the new button press
+      renderMenu();
     }
 
     /********************************************
@@ -120,11 +124,12 @@ namespace ArduinoFuoco
 
     void MenuController::renderMenu()
     {
-      _menus[_currentMenuId]->renderDisplay(_menuData);
+      byte currentMenuId = _menuData.getCurrentMenuId();
+      _menus[currentMenuId]->renderDisplay(_menuData);
       _lcd.setCursor(0, 0);
-      _lcd.print(_menus[_currentMenuId]->getDisplayLine1());
+      _lcd.print(_menus[currentMenuId]->getDisplayLine1());
       _lcd.setCursor(0, 1);
-      _lcd.print(_menus[_currentMenuId]->getDisplayLine2());
+      _lcd.print(_menus[currentMenuId]->getDisplayLine2());
     }
 
   }

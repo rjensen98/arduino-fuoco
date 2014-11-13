@@ -19,12 +19,12 @@ namespace ArduinoFuoco
         void setup();
         void turnOn();
         void turnOff();
-        byte getCurrentTemperature();
+        byte getCurrentTemperature() const;
 
-        byte getNumber();
-        byte getThermostatPin();
-        byte getRelayPin();
-        bool isOn();
+        byte getNumber() const;
+        byte getThermostatPin() const;
+        byte getRelayPin() const;
+        bool isOn() const;
         ZoneSetting* getZoneSettings();
         ZoneSetting* getZoneSetting(const HeatingInterval::Enum &interval);
 

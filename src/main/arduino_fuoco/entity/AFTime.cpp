@@ -19,17 +19,17 @@ namespace ArduinoFuoco
     {
     }
 
-    byte AFTime::getMinute()
+    byte AFTime::getMinute() const
     {
       return _minute;
     }
 
-    byte AFTime::getHour()
+    byte AFTime::getHour() const
     {
       return _hour;
     }
 
-    bool AFTime::isPm()
+    bool AFTime::isPm() const
     {
       return _is_pm;
     }

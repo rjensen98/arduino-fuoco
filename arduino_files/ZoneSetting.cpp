@@ -18,17 +18,17 @@ namespace ArduinoFuoco
     {
     }
 
-    byte ZoneSetting::getSetTemperature()
+    byte ZoneSetting::getSetTemperature() const
     {
       return _temperature;
     }
 
-    void ZoneSetting::setSetTemperature(const byte temperature)
+    void ZoneSetting::setSetTemperature(const byte &temperature)
     {
       _temperature = temperature;
     }
 
-    ArduinoFuoco::Enums::HeatingInterval::Enum ZoneSetting::getInterval()
+    ArduinoFuoco::Enums::HeatingInterval::Enum ZoneSetting::getInterval() const
     {
       return _heatingInterval;
     }

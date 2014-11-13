@@ -47,27 +47,27 @@ namespace ArduinoFuoco
       }
     }
 
-    byte Circulator::getRelayPin()
+    byte Circulator::getRelayPin() const
     {
       return _relayPin;
     }
 
-    int Circulator::getThermostatPin()
+    int Circulator::getThermostatPin() const
     {
       return _thermostatPin;
     }
 
-    bool Circulator::isAnalogThermostat()
+    bool Circulator::isAnalogThermostat() const
     {
       return _isAnalogThermostat;
     }
 
-    bool Circulator::isOn()
+    bool Circulator::isOn() const
     {
       return _isOn;
     }
 
-    CirculatorType::Enum Circulator::getCirculatorType()
+    CirculatorType::Enum Circulator::getCirculatorType() const
     {
       return _circulatorType;
     }
@@ -149,7 +149,7 @@ namespace ArduinoFuoco
       }
     }
 
-    byte Circulator::getCurrentTemperature()
+    byte Circulator::getCurrentTemperature() const
     {
       if (_thermostatPin < 0)
       {

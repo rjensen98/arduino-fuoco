@@ -25,8 +25,8 @@ namespace ArduinoFuoco
             AFMenuHandler handleLeft, AFMenuHandler handleRight, AFMenuHandler handleEnter,
             void (*customDisplay)(const MenuData &data, Menu &menu));  // AFCustomDisplayHandler customDisplay
         ~Menu();
-        String getDisplayLine1();
-        String getDisplayLine2();
+        String getDisplayLine1() const;
+        String getDisplayLine2() const;
         void setDisplayLine1(String line1);
         void setDisplayLine2(String line2);
         static AFMenuHandler NullHandler();

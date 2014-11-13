@@ -12,9 +12,9 @@ namespace ArduinoFuoco
       public:
         ZoneSetting();
         ZoneSetting(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval, const byte &temperature);
-        byte getSetTemperature();
-        void setSetTemperature(const byte temperature);
-        ArduinoFuoco::Enums::HeatingInterval::Enum getInterval();
+        byte getSetTemperature() const;
+        void setSetTemperature(const byte &temperature);
+        ArduinoFuoco::Enums::HeatingInterval::Enum getInterval() const;
         void setInterval(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval);
 
       private:

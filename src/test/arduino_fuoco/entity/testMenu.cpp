@@ -18,6 +18,9 @@ void testCustomDisplayHandler(const MenuData &data, Menu &menu);
 AFMenuHandler nullMenuHandler = Menu::NullHandler();
 AFCustomDisplayHandler nullDisplayHandler = 0;
 
+byte testMenuTimeChangerFunc(MenuData &data);
+
+
 SUITE(TestMenu)
 {
 
@@ -142,6 +145,20 @@ SUITE(TestMenu)
   }
 }
 
+
+TEST(dynamicMenuDataUpdater)
+{
+    Menu m(String("display this:"), String("Fire it UP!"), testMenuTimeChangerFunc, nullMenuHandler, nullMenuHandler, nullMenuHandler, nullMenuHandler);
+    MenuData md(0, 0);
+    md.setCurrentAFTime(AFTime(10, 0, false));
+    CHECK_EQUAL(10, md.getCurrentAFTime()->getHour());
+    CHECK_EQUAL(0, md.getCurrentAFTime()->getMinute());
+
+    CHECK_EQUAL(8, m.handleButtonPress(LCDButtonType::UP, md));
+    CHECK_EQUAL(10, md.getCurrentAFTime()->getHour());
+    CHECK_EQUAL(15, md.getCurrentAFTime()->getMinute());
+}
+
 byte testAFMenuHandlerFunc(MenuData &data)
 {
   return 8;
@@ -170,4 +187,10 @@ void testCustomDisplayHandler(const MenuData &data, Menu &menu)
 {
   menu.setDisplayLine1(String("new line 1"));
   menu.setDisplayLine2(String("new line 2"));
+}
+
+byte testMenuTimeChangerFunc(MenuData &data)
+{
+  data.getCurrentAFTime()->increment();
+  return 8;
 }

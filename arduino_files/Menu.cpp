@@ -48,12 +48,12 @@ namespace ArduinoFuoco
       }
     }
 
-    String Menu::getDisplayLine1()
+    String Menu::getDisplayLine1() const
     {
       return _displayLine1;
     }
 
-    String Menu::getDisplayLine2()
+    String Menu::getDisplayLine2() const
     {
       return _displayLine2;
     }

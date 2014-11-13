@@ -29,7 +29,6 @@ namespace ArduinoFuoco
         void handleButton();
 
       private:
-        byte _currentMenuId;
         byte _maxMenuCount;
         byte _menuCount;
         Menu** _menus;

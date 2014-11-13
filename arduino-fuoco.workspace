@@ -5,7 +5,7 @@
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="no">
       <Project Name="arduino_fuoco" ConfigName="Debug"/>
-      <Project Name="unit_testing" ConfigName="Debug"/>
+      <Project Name="unit_testing" ConfigName="Release"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Project Name="arduino_fuoco" ConfigName="Release"/>
