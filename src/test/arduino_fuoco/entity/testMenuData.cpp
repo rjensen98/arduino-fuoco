@@ -59,4 +59,22 @@ SUITE(TestMenuData)
     CHECK_EQUAL(5, md.getCurrentZoneId());
   }
 
+  TEST(currentNumber)
+  {
+    MenuData md(0, 0);
+    CHECK_EQUAL(0, md.getCurrentNumber());
+
+    md.setCurrentNumber(85);
+    CHECK_EQUAL(85, md.getCurrentNumber());
+  }
+
+  TEST(currentBool)
+  {
+    MenuData md(0, 0);
+    CHECK_EQUAL(false, md.getCurrentBool());
+
+    md.setCurrentBool(true);
+    CHECK_EQUAL(true, md.getCurrentBool());
+  }
+
 }

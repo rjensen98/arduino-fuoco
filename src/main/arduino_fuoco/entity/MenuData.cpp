@@ -9,7 +9,7 @@ namespace ArduinoFuoco
 
     MenuData::MenuData(Zone** zones, byte* zoneCount)
         : _zones(zones), _zoneCount(zoneCount), _currentMenuId(0), _currentZoneId(0),
-        _currentTime(AFTime())
+          _currentTime(AFTime()), _currentNumber(0), _currentBool(false)
     {
     }
 
@@ -45,6 +45,26 @@ namespace ArduinoFuoco
     AFTime* MenuData::getCurrentAFTime()
     {
       return &_currentTime;
+    }
+
+    void MenuData::setCurrentNumber(byte number)
+    {
+      _currentNumber = number;
+    }
+
+    byte MenuData::getCurrentNumber() const
+    {
+      return _currentNumber;
+    }
+
+    void MenuData::setCurrentBool(bool tf)
+    {
+      _currentBool = tf;
+    }
+
+    bool MenuData::getCurrentBool() const
+    {
+      return _currentBool;
     }
 
   }
