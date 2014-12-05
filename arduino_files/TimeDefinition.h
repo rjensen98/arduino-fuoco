@@ -5,6 +5,8 @@
 #include <AFTime.h>
 #include <HeatingInterval.h>
 
+using namespace ArduinoFuoco::Enums;
+
 namespace ArduinoFuoco
 {
 
@@ -15,12 +17,14 @@ namespace ArduinoFuoco
     {
       public:
         TimeDefinition();
-        TimeDefinition(ArduinoFuoco::Enums::HeatingInterval::Enum interval, AFTime time);
-        void setInterval(ArduinoFuoco::Enums::HeatingInterval::Enum interval);
+        TimeDefinition(HeatingInterval::Enum interval, AFTime time);
+        HeatingInterval::Enum getInterval() const;
+        void setInterval(HeatingInterval::Enum interval);
+        AFTime getTime() const;
         void setTime(AFTime time);
 
       private:
-        ArduinoFuoco::Enums::HeatingInterval::Enum _interval;
+        HeatingInterval::Enum _interval;
         AFTime _time;
     };
 

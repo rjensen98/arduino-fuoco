@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=RJensen
-Date                   :=11/13/14
+Date                   :=12/05/14
 CodeLitePath           :="C:\apps\CodeLite"
 LinkerName             :="C:/apps/MinGW-4.8.1/bin/g++.exe" 
 SharedObjectLinkerName :="C:/apps/MinGW-4.8.1/bin/g++.exe" -shared -fPIC
@@ -63,8 +63,8 @@ AS       := "C:/apps/MinGW-4.8.1/bin/as.exe"
 ##
 CodeLiteDir:=C:\apps\CodeLite
 UNIT_TEST_PP_SRC_DIR:=C:/apps/UnitTest++-1.3
-Objects0=$(IntermediateDirectory)/include_Arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/include_WString.cpp$(ObjectSuffix) $(IntermediateDirectory)/include_LiquidCrystal.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_MenuController.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_ZoneSetting.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_TimeDefinition.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_AFTime.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Circulator.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/entity_Menu.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_MenuData.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_MenuInitializer.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_ZoneListHelper.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/include_Arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/include_WString.cpp$(ObjectSuffix) $(IntermediateDirectory)/include_LiquidCrystal.cpp$(ObjectSuffix) $(IntermediateDirectory)/include_Time.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IntermediateDirectory)/controllers_MenuController.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Zone.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_ZoneSetting.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_TimeDefinition.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_AFTime.cpp$(ObjectSuffix) \
+	$(IntermediateDirectory)/entity_Circulator.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_Menu.cpp$(ObjectSuffix) $(IntermediateDirectory)/entity_MenuData.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_StringHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_AnalogHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_MenuInitializer.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_ZoneListHelper.cpp$(ObjectSuffix) $(IntermediateDirectory)/utility_TimeDefinitionHelper.cpp$(ObjectSuffix) 
 
 
 
@@ -122,6 +122,14 @@ $(IntermediateDirectory)/include_LiquidCrystal.cpp$(DependSuffix): include/Liqui
 
 $(IntermediateDirectory)/include_LiquidCrystal.cpp$(PreprocessSuffix): include/LiquidCrystal.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/include_LiquidCrystal.cpp$(PreprocessSuffix) "include/LiquidCrystal.cpp"
+
+$(IntermediateDirectory)/include_Time.cpp$(ObjectSuffix): include/Time.cpp $(IntermediateDirectory)/include_Time.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/include/Time.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/include_Time.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/include_Time.cpp$(DependSuffix): include/Time.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/include_Time.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/include_Time.cpp$(DependSuffix) -MM "include/Time.cpp"
+
+$(IntermediateDirectory)/include_Time.cpp$(PreprocessSuffix): include/Time.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/include_Time.cpp$(PreprocessSuffix) "include/Time.cpp"
 
 $(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix): src/main/arduino_fuoco/controllers/HeatController.cpp $(IntermediateDirectory)/controllers_HeatController.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/controllers/HeatController.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/controllers_HeatController.cpp$(ObjectSuffix) $(IncludePath)
@@ -226,6 +234,14 @@ $(IntermediateDirectory)/utility_ZoneListHelper.cpp$(DependSuffix): src/main/ard
 
 $(IntermediateDirectory)/utility_ZoneListHelper.cpp$(PreprocessSuffix): src/main/arduino_fuoco/utility/ZoneListHelper.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/utility_ZoneListHelper.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/utility/ZoneListHelper.cpp"
+
+$(IntermediateDirectory)/utility_TimeDefinitionHelper.cpp$(ObjectSuffix): src/main/arduino_fuoco/utility/TimeDefinitionHelper.cpp $(IntermediateDirectory)/utility_TimeDefinitionHelper.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/dev/arduino-fuoco/src/main/arduino_fuoco/utility/TimeDefinitionHelper.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/utility_TimeDefinitionHelper.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/utility_TimeDefinitionHelper.cpp$(DependSuffix): src/main/arduino_fuoco/utility/TimeDefinitionHelper.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/utility_TimeDefinitionHelper.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/utility_TimeDefinitionHelper.cpp$(DependSuffix) -MM "src/main/arduino_fuoco/utility/TimeDefinitionHelper.cpp"
+
+$(IntermediateDirectory)/utility_TimeDefinitionHelper.cpp$(PreprocessSuffix): src/main/arduino_fuoco/utility/TimeDefinitionHelper.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/utility_TimeDefinitionHelper.cpp$(PreprocessSuffix) "src/main/arduino_fuoco/utility/TimeDefinitionHelper.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

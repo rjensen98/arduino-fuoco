@@ -16,10 +16,11 @@ namespace ArduinoFuoco
         AFTime(const byte hour, const byte minute, const bool is_pm);
         byte getMinute() const;
         byte getHour() const;
+        byte getHour24() const;  // hour in a 24-hour format
         bool isPm() const;
         void increment(); //TODO: think about implementing the ++ operator
         void decrement(); //TODO: think about implementing the -- operator
-        String toString();
+        String toString() const;
 
       private:
         byte _hour;

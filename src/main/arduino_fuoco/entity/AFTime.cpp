@@ -29,6 +29,23 @@ namespace ArduinoFuoco
       return _hour;
     }
 
+    byte AFTime::getHour24() const
+    {
+      if (_hour == 12)
+      {
+        if (_is_pm) { return 12; }
+        else { return 0; }
+      }
+      else if (_is_pm)
+      {
+        return _hour + 12;
+      }
+      else
+      {
+        return _hour;
+      }
+    }
+
     bool AFTime::isPm() const
     {
       return _is_pm;
@@ -44,7 +61,7 @@ namespace ArduinoFuoco
       decrementMinute();
     }
 
-    String AFTime::toString()
+    String AFTime::toString() const
     {
       String strTime = "00:00 am";
       if (_is_pm) { strTime[6] = 'p'; }

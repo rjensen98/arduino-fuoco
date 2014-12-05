@@ -3,6 +3,7 @@
 #include "Circulator.h"
 #include "CirculatorType.h"
 #include <stdexcept>
+#include "Time.h"
 #include "TimeDefinition.h"
 #include "Zone.h"
 #include "ZoneListHelper.h"
@@ -22,6 +23,7 @@ namespace ArduinoFuoco
     {
       _zones = new Zone*[numZones];
       _circulators = new Circulator*[ArduinoFuoco::AppSettings::MAX_CIRCULATORS];
+      setTime(0, 0, 0, 1, 12, 2014);  // setTime(hr,min,sec,day,month,yr);
       setup();
     }
 

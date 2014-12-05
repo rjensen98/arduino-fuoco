@@ -25,6 +25,21 @@ SUITE(TestAFTime)
     CHECK_EQUAL(6, time2.getHour());
   }
 
+  TEST(getHour24)
+  {
+    AFTime time(6, 0, false);
+    CHECK_EQUAL(6, time.getHour24());
+
+    AFTime time2(6, 0, true);
+    CHECK_EQUAL(18, time2.getHour24());
+
+    AFTime time3(12, 0, true);
+    CHECK_EQUAL(12, time3.getHour24());
+
+    AFTime time4(12, 0, false);
+    CHECK_EQUAL(0, time4.getHour24());
+  }
+
   TEST(isPm)
   {
     AFTime time1;

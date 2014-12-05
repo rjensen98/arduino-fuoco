@@ -70,6 +70,8 @@
           <File Name="src/main/arduino_fuoco/utility/MenuInitializer.cpp"/>
           <File Name="src/main/arduino_fuoco/utility/ZoneListHelper.h"/>
           <File Name="src/main/arduino_fuoco/utility/ZoneListHelper.cpp"/>
+          <File Name="src/main/arduino_fuoco/utility/TimeDefinitionHelper.h"/>
+          <File Name="src/main/arduino_fuoco/utility/TimeDefinitionHelper.cpp"/>
         </VirtualDirectory>
       </VirtualDirectory>
     </VirtualDirectory>
@@ -81,6 +83,8 @@
     <File Name="include/WString.h"/>
     <File Name="include/LiquidCrystal.h"/>
     <File Name="include/LiquidCrystal.cpp"/>
+    <File Name="include/Time.cpp"/>
+    <File Name="include/Time.h"/>
   </VirtualDirectory>
   <Settings Type="Static Library">
     <GlobalSettings>
