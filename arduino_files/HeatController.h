@@ -25,9 +25,8 @@ namespace ArduinoFuoco
         void heatHouse();
         TimeDefinition* getTimeDefinitions();
         Zone** getZones();
-        byte getZoneCount();
+        byte getZoneCount() const;
         byte* getZoneCountRef();
-    //    TimePeriod; TimeOfDay;
 
       private:
         byte _maxZones;
@@ -39,6 +38,7 @@ namespace ArduinoFuoco
         HeatingInterval::Enum getCurrentInterval();
         Circulator** _circulators;
         Circulator* getCirculator(const CirculatorType::Enum &circType);
+        TimeDefinition* _timeDefinitions;
         void runPrimaryCirculator();
         void runBoilerCirculator();
         void runCirculator(Circulator* primary);
