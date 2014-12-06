@@ -3,6 +3,7 @@
 
 #include <ArduinoFuocoAppSettings.h>
 #include <HeatingInterval.h>
+#include <TimeDefinition.h>
 #include <ZoneSetting.h>
 
 using namespace ArduinoFuoco::Enums;
@@ -27,6 +28,9 @@ namespace ArduinoFuoco
         bool isOn() const;
         ZoneSetting* getZoneSettings();
         ZoneSetting* getZoneSetting(const HeatingInterval::Enum &interval);
+        ZoneSetting* getCurrentZoneSetting();
+        TimeDefinition* getTimeDefinitions();
+        HeatingInterval::Enum getCurrentInterval();
 
       private:
         byte _number;
@@ -34,6 +38,7 @@ namespace ArduinoFuoco
         byte _relayPin;
         bool _isOn;
         ZoneSetting* _zoneSettings;
+        TimeDefinition* _timeDefinitions;
     };
   }
 }

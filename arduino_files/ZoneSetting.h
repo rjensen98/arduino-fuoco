@@ -4,6 +4,8 @@
 #include <ArduinoFuocoAppSettings.h>
 #include <HeatingInterval.h>
 
+using namespace ArduinoFuoco::Enums;
+
 namespace ArduinoFuoco
 {
   namespace Entity
@@ -11,14 +13,14 @@ namespace ArduinoFuoco
     class ZoneSetting {
       public:
         ZoneSetting();
-        ZoneSetting(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval, const byte &temperature);
+        ZoneSetting(const HeatingInterval::Enum &interval, const byte &temperature);
         byte getSetTemperature() const;
         void setSetTemperature(const byte &temperature);
-        ArduinoFuoco::Enums::HeatingInterval::Enum getInterval() const;
-        void setInterval(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval);
+        HeatingInterval::Enum getInterval() const;
+        void setInterval(const HeatingInterval::Enum &interval);
 
       private:
-        ArduinoFuoco::Enums::HeatingInterval::Enum _heatingInterval;
+        HeatingInterval::Enum _heatingInterval;
         byte _temperature;
     };
   }

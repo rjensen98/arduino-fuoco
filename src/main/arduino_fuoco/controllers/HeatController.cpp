@@ -4,8 +4,6 @@
 #include "CirculatorType.h"
 #include <stdexcept>
 #include "Time.h"
-#include "TimeDefinition.h"
-#include "TimeDefinitionHelper.h"
 #include "Zone.h"
 #include "ZoneListHelper.h"
 #include "ZoneSetting.h"
@@ -25,14 +23,6 @@ namespace ArduinoFuoco
       _zones = new Zone*[numZones];
       _circulators = new Circulator*[ArduinoFuoco::AppSettings::MAX_CIRCULATORS];
       setTime(0, 0, 0, 1, 12, 2014);  // setTime(hr,min,sec,day,month,yr);
-
-      // Prepare TimeDefinitions
-      _timeDefinitions = new TimeDefinition[HeatingInterval::COUNT];
-      for (int i = 0; i < HeatingInterval::COUNT; i++)
-      {
-        _timeDefinitions[i] = TimeDefinition((HeatingInterval::Enum)i, AFTime(8, 0, false));
-      }
-
       setup();
     }
 
@@ -40,7 +30,6 @@ namespace ArduinoFuoco
     {
       delete[] _zones;
       delete[] _circulators;
-      delete[] _timeDefinitions;
     }
 
     void HeatController::setup()
@@ -96,7 +85,7 @@ namespace ArduinoFuoco
       for (int i = 0; i < _zoneCount; i++)
       {
         Zone* zone = _zones[i];
-        ZoneSetting* setting = zone->getZoneSetting(getCurrentInterval());
+        ZoneSetting* setting = zone->getCurrentZoneSetting();
         if (!zone->isOn() && zone->getCurrentTemperature() < (setting->getSetTemperature() - ArduinoFuoco::AppSettings::HYSTERESIS)) {
           zone->turnOn();
           _zonesRunning++;
@@ -144,16 +133,6 @@ namespace ArduinoFuoco
         }
       }
       return c;
-    }
-
-    TimeDefinition* HeatController::getTimeDefinitions()
-    {
-      return _timeDefinitions;
-    }
-
-    HeatingInterval::Enum HeatController::getCurrentInterval()
-    {
-      return TimeDefinitionHelper::getCurrentHeatingInterval(getTimeDefinitions());
     }
 
     void HeatController::runCirculator(Circulator* circ)

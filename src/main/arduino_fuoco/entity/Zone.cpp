@@ -2,6 +2,8 @@
 #include <AnalogHelper.h>
 #include <Arduino.h>
 #include <HeatingInterval.h>
+#include "TimeDefinition.h"
+#include "TimeDefinitionHelper.h"
 #include <ZoneSetting.h>
 
 using namespace ArduinoFuoco::Entity;
@@ -24,6 +26,13 @@ namespace ArduinoFuoco
         _zoneSettings[i].setInterval((ArduinoFuoco::Enums::HeatingInterval::Enum)i);
       }
 
+      // Prepare TimeDefinitions
+      _timeDefinitions = new TimeDefinition[HeatingInterval::COUNT];
+      for (int i = 0; i < HeatingInterval::COUNT; i++)
+      {
+        _timeDefinitions[i] = TimeDefinition((HeatingInterval::Enum)i, AFTime(8, 0, false));
+      }
+
       // Initialize Arduino pins
       setup();
     }
@@ -31,6 +40,7 @@ namespace ArduinoFuoco
     Zone::~Zone()
     {
       delete[] _zoneSettings;
+      delete[] _timeDefinitions;
     }
 
     void Zone::setup()
@@ -138,6 +148,21 @@ namespace ArduinoFuoco
       #endif
 
       return zs;  // return null pointer if no matching setting was found
+    }
+
+    ZoneSetting* Zone::getCurrentZoneSetting()
+    {
+      return getZoneSetting(getCurrentInterval());
+    }
+
+    TimeDefinition* Zone::getTimeDefinitions()
+    {
+      return _timeDefinitions;
+    }
+
+    HeatingInterval::Enum Zone::getCurrentInterval()
+    {
+      return TimeDefinitionHelper::getCurrentHeatingInterval(getTimeDefinitions());
     }
 
   }

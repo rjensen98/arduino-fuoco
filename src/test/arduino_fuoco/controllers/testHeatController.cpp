@@ -2,7 +2,6 @@
 #include "HeatController.h"
 #include "Circulator.h"
 #include "HeatingInterval.h"
-#include "TimeDefinition.h"
 #include "Zone.h"
 
 using namespace UnitTest;
@@ -44,23 +43,6 @@ SUITE(TestHeatController)
     CHECK(!z2.isOn());
     CHECK(!c1.isOn());
     CHECK(!c2.isOn());
-  }
-
-  TEST(timeDefinitions)
-  {
-    HeatController hc(2);
-    CHECK_EQUAL(HeatingInterval::WKDAY_AWAY, hc.getTimeDefinitions()[HeatingInterval::WKDAY_AWAY].getInterval());
-    CHECK_EQUAL(HeatingInterval::WKDAY_RETURN, hc.getTimeDefinitions()[HeatingInterval::WKDAY_RETURN].getInterval());
-    CHECK_EQUAL(HeatingInterval::WKDAY_SLEEP, hc.getTimeDefinitions()[HeatingInterval::WKDAY_SLEEP].getInterval());
-    CHECK_EQUAL(HeatingInterval::WKDAY_WAKE, hc.getTimeDefinitions()[HeatingInterval::WKDAY_WAKE].getInterval());
-    CHECK_EQUAL(HeatingInterval::WKEND_AWAY, hc.getTimeDefinitions()[HeatingInterval::WKEND_AWAY].getInterval());
-    CHECK_EQUAL(HeatingInterval::WKEND_RETURN, hc.getTimeDefinitions()[HeatingInterval::WKEND_RETURN].getInterval());
-    CHECK_EQUAL(HeatingInterval::WKEND_SLEEP, hc.getTimeDefinitions()[HeatingInterval::WKEND_SLEEP].getInterval());
-    CHECK_EQUAL(HeatingInterval::WKEND_WAKE, hc.getTimeDefinitions()[HeatingInterval::WKEND_WAKE].getInterval());
-
-    TimeDefinition* testDefs = hc.getTimeDefinitions();
-    testDefs[HeatingInterval::WKEND_WAKE].setTime(AFTime(9, 30, false));
-    CHECK_EQUAL(9, hc.getTimeDefinitions()[HeatingInterval::WKEND_WAKE].getTime().getHour());
   }
 
 }

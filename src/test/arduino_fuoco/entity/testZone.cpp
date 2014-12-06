@@ -1,7 +1,8 @@
 #include <UnitTest++.h>
 #include "Zone.h"
-#include "ZoneSetting.h"
 #include "HeatingInterval.h"
+#include "TimeDefinition.h"
+#include "ZoneSetting.h"
 
 using namespace UnitTest;
 using namespace ArduinoFuoco::Entity;
@@ -86,4 +87,22 @@ SUITE(TestZone)
     z.setup();
     CHECK(!z.isOn());
   }
+
+  TEST(timeDefinitions)
+  {
+    Zone z(1, 5, 10);
+    CHECK_EQUAL(HeatingInterval::WKDAY_AWAY, z.getTimeDefinitions()[HeatingInterval::WKDAY_AWAY].getInterval());
+    CHECK_EQUAL(HeatingInterval::WKDAY_RETURN, z.getTimeDefinitions()[HeatingInterval::WKDAY_RETURN].getInterval());
+    CHECK_EQUAL(HeatingInterval::WKDAY_SLEEP, z.getTimeDefinitions()[HeatingInterval::WKDAY_SLEEP].getInterval());
+    CHECK_EQUAL(HeatingInterval::WKDAY_WAKE, z.getTimeDefinitions()[HeatingInterval::WKDAY_WAKE].getInterval());
+    CHECK_EQUAL(HeatingInterval::WKEND_AWAY, z.getTimeDefinitions()[HeatingInterval::WKEND_AWAY].getInterval());
+    CHECK_EQUAL(HeatingInterval::WKEND_RETURN, z.getTimeDefinitions()[HeatingInterval::WKEND_RETURN].getInterval());
+    CHECK_EQUAL(HeatingInterval::WKEND_SLEEP, z.getTimeDefinitions()[HeatingInterval::WKEND_SLEEP].getInterval());
+    CHECK_EQUAL(HeatingInterval::WKEND_WAKE, z.getTimeDefinitions()[HeatingInterval::WKEND_WAKE].getInterval());
+
+    TimeDefinition* testDefs = z.getTimeDefinitions();
+    testDefs[HeatingInterval::WKEND_WAKE].setTime(AFTime(9, 30, false));
+    CHECK_EQUAL(9, z.getTimeDefinitions()[HeatingInterval::WKEND_WAKE].getTime().getHour());
+  }
+
 }
