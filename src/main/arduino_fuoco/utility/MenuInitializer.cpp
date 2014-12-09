@@ -3,6 +3,7 @@
 #include "MenuData.h"
 #include "MenuController.h"
 #include "StringHelper.h"
+#include "Time.h"
 
 using namespace ArduinoFuoco::Controllers;
 using namespace ArduinoFuoco::Entity;
@@ -68,7 +69,10 @@ namespace ArduinoFuoco
         menu.setDisplayLine1(String("Set Hour"));
         menu.setDisplayLine2(StringHelper::itoa(data.getCurrentNumber()));
       }
-      byte dtsHourBuilderEnter(MenuData &data) { return 6; }  //TODO: set current time based on new Hour value
+      byte dtsHourBuilderEnter(MenuData &data) {
+        setTime(data.getCurrentNumber(), minute(), 0, weekday(), ArduinoFuoco::AppSettings::SET_TIME_START_MONTH, ArduinoFuoco::AppSettings::SET_TIME_START_YEAR);  // setTime(hr,min,sec,day,month,yr);
+        return 6;
+      }
 
 
       // AM/PM: Menu = 8; Builder = 12
@@ -85,7 +89,11 @@ namespace ArduinoFuoco
         menu.setDisplayLine1(String("Set AM / PM"));
         menu.setDisplayLine2(data.getCurrentBool() ? String("PM") : String("AM"));
       }
-      byte dtsAmPmBuilderEnter(MenuData &data) { return 7; }  //TODO: set current time based on new AM/PM value
+      byte dtsAmPmBuilderEnter(MenuData &data) {
+        AFTime tmpTime(hour(), 0, data.getCurrentBool());
+        setTime(tmpTime.getHour24(), minute(), 0, weekday(), ArduinoFuoco::AppSettings::SET_TIME_START_MONTH, ArduinoFuoco::AppSettings::SET_TIME_START_YEAR);  // setTime(hr,min,sec,day,month,yr);
+        return 7;
+      }
 
 
       // Minute: Menu = 7; Builder = 13
@@ -113,7 +121,10 @@ namespace ArduinoFuoco
         menu.setDisplayLine1(String("Set Minute"));
         menu.setDisplayLine2(StringHelper::itoa(data.getCurrentNumber()));
       }
-      byte dtsMinuteBuilderEnter(MenuData &data) { return 7; }  //TODO: set current time based on new Minute value
+      byte dtsMinuteBuilderEnter(MenuData &data) {
+        setTime(hour(), data.getCurrentNumber(), 0, weekday(), ArduinoFuoco::AppSettings::SET_TIME_START_MONTH, ArduinoFuoco::AppSettings::SET_TIME_START_YEAR);  // setTime(hr,min,sec,day,month,yr);
+        return 7;
+      }
 
 
 //  OPTED TO *NOT* DO THIS NOW; CAN'T DYNAMICALLY WIRE A PHYSICAL ACTUATOR TO THE BOARD BASED ON MENU SELECTION; THE ZONES

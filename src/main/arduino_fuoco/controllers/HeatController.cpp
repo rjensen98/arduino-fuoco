@@ -22,7 +22,7 @@ namespace ArduinoFuoco
     {
       _zones = new Zone*[numZones];
       _circulators = new Circulator*[ArduinoFuoco::AppSettings::MAX_CIRCULATORS];
-      setTime(0, 0, 0, 1, 12, 2014);  // setTime(hr,min,sec,day,month,yr);
+      setTime(0, 0, 0, 1, ArduinoFuoco::AppSettings::SET_TIME_START_MONTH, ArduinoFuoco::AppSettings::SET_TIME_START_YEAR);  // setTime(hr,min,sec,day,month,yr);
       setup();
     }
 
