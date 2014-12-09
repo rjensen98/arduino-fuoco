@@ -21,7 +21,7 @@ namespace ArduinoFuoco
         HeatingInterval::Enum getInterval() const;
         void setInterval(HeatingInterval::Enum interval);
         AFTime getTime() const;
-        void setTime(AFTime time);
+        void setTime(const AFTime time);
 
       private:
         HeatingInterval::Enum _interval;

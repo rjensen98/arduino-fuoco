@@ -67,6 +67,16 @@ namespace ArduinoFuoco
       return _currentBool;
     }
 
+    byte* MenuData::getZoneCount() const
+    {
+      return _zoneCount;
+    }
+
+    Zone** MenuData::getZones() const
+    {
+      return _zones;
+    }
+
   }
 
 }

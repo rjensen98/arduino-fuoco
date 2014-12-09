@@ -28,6 +28,8 @@ namespace ArduinoFuoco
         byte getCurrentNumber() const;
         void setCurrentBool(bool tf);
         bool getCurrentBool() const;
+        byte* getZoneCount() const;
+        Zone** getZones() const;
 
       private:
         byte _currentMenuId;

@@ -35,7 +35,7 @@ namespace ArduinoFuoco
       return _time;
     }
 
-    void TimeDefinition::setTime(AFTime time)
+    void TimeDefinition::setTime(const AFTime time)
     {
       _time = time;
     }

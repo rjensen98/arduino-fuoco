@@ -31,7 +31,7 @@ namespace ArduinoFuoco
         void setDisplayLine2(String line2);
         static AFMenuHandler NullHandler();
         void renderDisplay(const MenuData &data);
-        int handleButtonPress(const LCDButtonType::Enum &button, MenuData &data);
+        int handleButtonPress(const LCDButtonType::Enum &button, MenuData &data) const;
 
       private:
         String _displayLine1;

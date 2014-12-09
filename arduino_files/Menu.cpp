@@ -68,7 +68,7 @@ namespace ArduinoFuoco
       _displayLine2 = line2;
     }
 
-    int Menu::handleButtonPress(const LCDButtonType::Enum &button, MenuData &data)
+    int Menu::handleButtonPress(const LCDButtonType::Enum &button, MenuData &data) const
     {
       switch (button)
       {
