@@ -22,13 +22,21 @@ namespace ArduinoFuoco
       {
         data.setCurrentNumber(0);
         data.setCurrentBool(false);
-        data.setCurrentAFTime(AFTime());  //TODO: fix initialization; set time to Time.Now
       }
 
       byte homeUp(MenuData &data) { return 4; }
       byte homeDown(MenuData &data) { return 1; }
       byte currentUp(MenuData &data) { return 0; }
       byte currentDown(MenuData &data) { return 2; }
+      byte currentEnter(MenuData &data) { return 16; }
+      byte currentStatusBuilderLeft(MenuData &data) { return 1; }
+      void currentStatusBuilderDisplay(const MenuData &data, Menu &menu) {
+        // Loop through the different zones at N-second intervals showing temps and running status
+//        menu.setDisplayLine1(String("Set Hour"));
+//        menu.setDisplayLine2(StringHelper::itoa(data.getCurrentNumber()));
+      }
+
+
       byte zoneSetupUp(MenuData &data) { return 1; }
       byte zoneSetupDown(MenuData &data) { return 3; }
       byte dateUp(MenuData &data) { return 2; }
@@ -38,10 +46,59 @@ namespace ArduinoFuoco
       byte advancedDown(MenuData &data) { return 0; }
 
 
-      // Day of Week: Menu = 5; Builder = N/A
+      // Day of Week: Menu = 5; Builder = 15
       byte dtsDayOfWeekUp(MenuData &data) { return 7; }
       byte dtsDayOfWeekDown(MenuData &data) { return 6; }
-//      byte dtsDayOfWeekEnter(MenuData & data) { return ####; }
+      byte dtsDayOfWeekEnter(MenuData & data) {
+        initMenuData(data);
+        data.setCurrentNumber(weekday());
+        return 15;
+      }
+      byte dtsDayOfWeekBuilderUp(MenuData &data) {
+        byte current = data.getCurrentNumber();
+        if (current == 7) { data.setCurrentNumber(1); }
+        else { data.setCurrentNumber(current++); }
+        return 15;
+      }
+      byte dtsDayOfWeekBuilderDown(MenuData &data) {
+        byte current = data.getCurrentNumber();
+        if (current == 1) { data.setCurrentNumber(7); }
+        else { data.setCurrentNumber(current--); }
+        return 15;
+      }
+      byte dtsDayOfWeekBuilderLeft(MenuData &data) { return 5; }
+      void dtsDayOfWeekBuilderDisplay(const MenuData &data, Menu &menu) {
+        String weekday = "";
+        switch (data.getCurrentNumber()) {
+          case 1:
+            weekday = "Sun";
+            break;
+          case 2:
+            weekday = "Mon";
+            break;
+          case 3:
+            weekday = "Tues";
+            break;
+          case 4:
+            weekday = "Wed";
+            break;
+          case 5:
+            weekday = "Thurs";
+            break;
+          case 6:
+            weekday = "Fri";
+            break;
+          case 7:
+            weekday = "Sat";
+            break;
+        }
+        menu.setDisplayLine1(String("Set Day of Week"));
+        menu.setDisplayLine2(weekday);
+      }
+      byte dtsDayOfWeekBuilderEnter(MenuData &data) {
+        setTime(hour(), minute(), 0, data.getCurrentNumber(), ArduinoFuoco::AppSettings::SET_TIME_START_MONTH, ArduinoFuoco::AppSettings::SET_TIME_START_YEAR);  // setTime(hr,min,sec,day,month,yr);
+        return 5;
+      }
 
 
       // Hour: Menu = 6; Builder = 11
@@ -49,7 +106,7 @@ namespace ArduinoFuoco
       byte dtsHourDown(MenuData &data) { return 8; }
       byte dtsHourEnter(MenuData &data) {
         initMenuData(data);
-        data.setCurrentNumber(data.getCurrentAFTime()->getHour());
+        data.setCurrentNumber(hour());
         return 11;
       }
       byte dtsHourBuilderUp(MenuData &data) {
@@ -101,7 +158,7 @@ namespace ArduinoFuoco
       byte dtsMinuteDown(MenuData &data) { return 5; }
       byte dtsMinuteEnter(MenuData &data) {
         initMenuData(data);
-        data.setCurrentNumber(data.getCurrentAFTime()->getHour());
+        data.setCurrentNumber(minute());
         return 13;
       }
       byte dtsMinuteBuilderUp(MenuData &data) {
@@ -172,12 +229,14 @@ namespace ArduinoFuoco
 
       // new Menu(str1, str2, up, down, left, right, enter, [optional]customDisplay)
       Menu* homeMenu = new Menu(String("Arduino Fuoco -"), String("Radiant Heating"), MenuHandlers::homeUp, MenuHandlers::homeDown, nullHandler, nullHandler, nullHandler);
-      Menu* currentStatus = new Menu(String("Current Status"), String(""), MenuHandlers::currentUp, MenuHandlers::currentDown, nullHandler, nullHandler, nullHandler);
+      Menu* currentStatus = new Menu(String("Current Status"), String(""), MenuHandlers::currentUp, MenuHandlers::currentDown, nullHandler, nullHandler, MenuHandlers::currentEnter);
+      Menu* currentStatusBuilder = new Menu(String("Current Status"), String(""), nullHandler, nullHandler, MenuHandlers::currentStatusBuilderLeft, nullHandler, nullHandler, MenuHandlers::currentStatusBuilderDisplay);
       Menu* zoneSetup = new Menu(String("Zone Setup"), String(""), MenuHandlers::zoneSetupUp, MenuHandlers::zoneSetupDown, nullHandler, nullHandler, nullHandler);
       Menu* dateTimeSetup = new Menu(String("Set Date & Time"), String(""), MenuHandlers::dateUp, MenuHandlers::dateDown, nullHandler, nullHandler, MenuHandlers::dateEnter);
       Menu* advanced = new Menu(String("Advanced"), String(""), MenuHandlers::advancedUp, MenuHandlers::advancedDown, nullHandler, nullHandler, nullHandler);
 
-      Menu* dtsDayOfWeek = new Menu(String("Day of the Week"), String(""), MenuHandlers::dtsDayOfWeekUp, MenuHandlers::dtsDayOfWeekDown, nullHandler, nullHandler, nullHandler);
+      Menu* dtsDayOfWeek = new Menu(String("Day of the Week"), String(""), MenuHandlers::dtsDayOfWeekUp, MenuHandlers::dtsDayOfWeekDown, nullHandler, nullHandler, MenuHandlers::dtsDayOfWeekEnter);
+      Menu* dtsDayOfWeekBuilder = new Menu(String("Day of the Week"), String(""), MenuHandlers::dtsDayOfWeekBuilderUp, MenuHandlers::dtsDayOfWeekBuilderDown, MenuHandlers::dtsDayOfWeekBuilderLeft, nullHandler, MenuHandlers::dtsDayOfWeekBuilderEnter, MenuHandlers::dtsDayOfWeekBuilderDisplay);
       Menu* dtsHour = new Menu(String("Set Hour"), String(""), MenuHandlers::dtsHourUp, MenuHandlers::dtsHourDown, nullHandler, nullHandler, MenuHandlers::dtsHourEnter);
       Menu* dtsHourBuilder = new Menu(String("Set Hour"), String(""), MenuHandlers::dtsHourBuilderUp, MenuHandlers::dtsHourBuilderDown, MenuHandlers::dtsHourBuilderLeft, nullHandler, MenuHandlers::dtsHourBuilderEnter, MenuHandlers::dtsHourBuilderDisplay);
       Menu* dtsMinute = new Menu(String("Set Minute"), String(""), MenuHandlers::dtsMinuteUp, MenuHandlers::dtsMinuteDown, nullHandler, nullHandler, MenuHandlers::dtsMinuteEnter);
@@ -207,6 +266,8 @@ namespace ArduinoFuoco
       menuController.addMenu(dtsAmPmBuilder);
       menuController.addMenu(dtsMinuteBuilder);
       menuController.addMenu(zsNumerOfZonesBuilder);
+      menuController.addMenu(dtsDayOfWeekBuilder);
+      menuController.addMenu(currentStatusBuilder);
     }
 
   }
