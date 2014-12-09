@@ -4,6 +4,7 @@
 #include "MenuController.h"
 #include "StringHelper.h"
 #include "Time.h"
+#include "Zone.h"
 
 using namespace ArduinoFuoco::Controllers;
 using namespace ArduinoFuoco::Entity;
@@ -32,8 +33,15 @@ namespace ArduinoFuoco
       byte currentStatusBuilderLeft(MenuData &data) { return 1; }
       void currentStatusBuilderDisplay(const MenuData &data, Menu &menu) {
         // Loop through the different zones at N-second intervals showing temps and running status
-//        menu.setDisplayLine1(String("Set Hour"));
-//        menu.setDisplayLine2(StringHelper::itoa(data.getCurrentNumber()));
+        byte secondsToWait = 5;  // TODO: extract this to appSettings as generic timedDisplayScrollInterval
+        // byte zoneNumber = (now() - startTime) / 5 % data.getZoneCount()
+        byte zoneNumber = 0;
+        Zone* currentZone = data.getZones()[zoneNumber];
+        String zoneStatus = "Off";
+        if (currentZone->isOn()) { zoneStatus = "On"; }
+        menu.setDisplayLine1(String("Status - Zone " + StringHelper::itoa(currentZone->getNumber())));
+        menu.setDisplayLine2(String("Temp: " + StringHelper::itoa(currentZone->getCurrentTemperature()) +
+            "; " + zoneStatus));
       }
 
 
