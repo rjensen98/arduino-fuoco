@@ -18,6 +18,8 @@ namespace ArduinoFuoco
     const byte BOILER_SHUTOFF_TEMP = 120;  // temperature (^F) at which to turn the boiler circulator off
     const byte SET_TIME_START_MONTH = 6;  // June 2014 starts on a Sunday; it helps with weekday() == 1 == Sunday == day()
     const int SET_TIME_START_YEAR = 2014;  // June 2014 (see above)
+
+    const byte TIMED_DISPLAY_SCROLL_INTERVAL = 5;
   }
 }
 

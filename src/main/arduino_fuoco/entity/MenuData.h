@@ -24,8 +24,8 @@ namespace ArduinoFuoco
         byte getCurrentZoneId() const;
         void setCurrentAFTime(const AFTime &time);
         AFTime* getCurrentAFTime();
-        void setCurrentNumber(byte number);
-        byte getCurrentNumber() const;
+        void setCurrentNumber(int number);
+        int getCurrentNumber() const;
         void setCurrentBool(bool tf);
         bool getCurrentBool() const;
         byte* getZoneCount() const;
@@ -37,7 +37,7 @@ namespace ArduinoFuoco
         byte* _zoneCount;
         Zone** _zones;
         AFTime _currentTime;  // not necessarily Time.now; just a holder for a particular time at hand for the given menu context
-        byte _currentNumber;  // used for numeric selection w/o "saving" the value to a corresponding entity
+        int _currentNumber;  // used for numeric selection w/o "saving" the value to a corresponding entity
         bool _currentBool;    // used for boolean selection w/o "saving" the value to a corresponding entity
     };
 

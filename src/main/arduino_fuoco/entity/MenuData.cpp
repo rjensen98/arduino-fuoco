@@ -47,12 +47,12 @@ namespace ArduinoFuoco
       return &_currentTime;
     }
 
-    void MenuData::setCurrentNumber(byte number)
+    void MenuData::setCurrentNumber(int number)
     {
       _currentNumber = number;
     }
 
-    byte MenuData::getCurrentNumber() const
+    int MenuData::getCurrentNumber() const
     {
       return _currentNumber;
     }

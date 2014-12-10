@@ -29,13 +29,24 @@ namespace ArduinoFuoco
       byte homeDown(MenuData &data) { return 1; }
       byte currentUp(MenuData &data) { return 0; }
       byte currentDown(MenuData &data) { return 2; }
-      byte currentEnter(MenuData &data) { return 16; }
+      byte currentEnter(MenuData &data) {
+        data.setCurrentNumber(elapsedSecsToday(now()));
+        return 16;
+      }
       byte currentStatusBuilderLeft(MenuData &data) { return 1; }
       void currentStatusBuilderDisplay(const MenuData &data, Menu &menu) {
         // Loop through the different zones at N-second intervals showing temps and running status
-        byte secondsToWait = 5;  // TODO: extract this to appSettings as generic timedDisplayScrollInterval
-        // byte zoneNumber = (now() - startTime) / 5 % data.getZoneCount()
-        byte zoneNumber = 0;
+
+        /**************************************************************************************************************************
+        *  There's a potential bug here if viewing status near midnight and the day rolls over; I can live with that.
+        *  Alternative would be to store long (time_t) seconds-since-1970 in MenuData and use that. Too much overhead for now.
+        *
+        *  (Time elapsed since entering this menu) / (N-second interval) = numberOfIntervals;
+        *  numberOfIntervals % (Number of zones) = zoneToDisplayForNSeconds
+        **************************************************************************************************************************/
+        byte zoneNumber = (elapsedSecsToday(now()) - data.getCurrentNumber()) /
+            ArduinoFuoco::AppSettings::TIMED_DISPLAY_SCROLL_INTERVAL % *data.getZoneCount();
+
         Zone* currentZone = data.getZones()[zoneNumber];
         String zoneStatus = "Off";
         if (currentZone->isOn()) { zoneStatus = "On"; }
