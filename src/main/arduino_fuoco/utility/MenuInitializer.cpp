@@ -63,6 +63,31 @@ namespace ArduinoFuoco
       byte dateEnter(MenuData &data) { return 5; }
       byte advancedUp(MenuData &data) { return 3; }
       byte advancedDown(MenuData &data) { return 0; }
+      byte advancedEnter(MenuData &data) { return 17; }
+
+      // Advanced - Hysteresis: Menu = 17; Builder = 18
+      byte advHysteresisEnter(MenuData &data) {
+        data.setCurrentNumber(ArduinoFuoco::AppSettings::HYSTERESIS);
+        return 18;
+      }
+      byte advHysteresisBuilderUp(MenuData &data) {
+        byte current = data.getCurrentNumber();
+        if (current <= 10) { data.setCurrentNumber(current++); }
+        return 18;
+      }
+      byte advHysteresisBuilderDown(MenuData &data) {
+        byte current = data.getCurrentNumber();
+        if (current >= 0) { data.setCurrentNumber(current--); }
+        return 18;
+      }
+      byte advHysteresisBuilderEnter(MenuData &data) {
+//        ArduinoFuoco::AppSettings::HYSTERESIS = data.getCurrentNumber();  //TODO: figure out how to set a global variable (making it non-const is blowing up the builder)
+        return 17;
+      }
+      void advHysteresisBuilderDisplay(const MenuData &data, Menu &menu) {
+        menu.setDisplayLine1(String("Set Hysteresis"));
+        menu.setDisplayLine2(StringHelper::itoa(data.getCurrentNumber()));
+      }
 
 
       // Day of Week: Menu = 5; Builder = 15
@@ -252,7 +277,7 @@ namespace ArduinoFuoco
       Menu* currentStatusBuilder = new Menu(String("Current Status"), String(""), nullHandler, nullHandler, MenuHandlers::currentStatusBuilderLeft, nullHandler, nullHandler, MenuHandlers::currentStatusBuilderDisplay);
       Menu* zoneSetup = new Menu(String("Zone Setup"), String(""), MenuHandlers::zoneSetupUp, MenuHandlers::zoneSetupDown, nullHandler, nullHandler, nullHandler);
       Menu* dateTimeSetup = new Menu(String("Set Date & Time"), String(""), MenuHandlers::dateUp, MenuHandlers::dateDown, nullHandler, nullHandler, MenuHandlers::dateEnter);
-      Menu* advanced = new Menu(String("Advanced"), String(""), MenuHandlers::advancedUp, MenuHandlers::advancedDown, nullHandler, nullHandler, nullHandler);
+      Menu* advanced = new Menu(String("Advanced"), String(""), MenuHandlers::advancedUp, MenuHandlers::advancedDown, nullHandler, nullHandler, MenuHandlers::advancedEnter);
 
       Menu* dtsDayOfWeek = new Menu(String("Day of the Week"), String(""), MenuHandlers::dtsDayOfWeekUp, MenuHandlers::dtsDayOfWeekDown, nullHandler, nullHandler, MenuHandlers::dtsDayOfWeekEnter);
       Menu* dtsDayOfWeekBuilder = new Menu(String("Day of the Week"), String(""), MenuHandlers::dtsDayOfWeekBuilderUp, MenuHandlers::dtsDayOfWeekBuilderDown, MenuHandlers::dtsDayOfWeekBuilderLeft, nullHandler, MenuHandlers::dtsDayOfWeekBuilderEnter, MenuHandlers::dtsDayOfWeekBuilderDisplay);
@@ -266,6 +291,9 @@ namespace ArduinoFuoco
       Menu* zsNumerOfZones = new Menu(String("# of Zones"), String(""), nullHandler, nullHandler, nullHandler, nullHandler, nullHandler);
       Menu* zsNumerOfZonesBuilder = new Menu(String("# of Zones"), String(""), nullHandler, nullHandler, nullHandler, nullHandler, nullHandler);
       Menu* zsZoneSettings = new Menu(String("Zone Settings"), String(""), MenuHandlers::zsZoneSettingsUp, MenuHandlers::zsZoneSettingsDown, nullHandler, nullHandler, nullHandler);
+
+      Menu* advHysteresis = new Menu(String("Hysteresis"), String(""), nullHandler, nullHandler, nullHandler, nullHandler, MenuHandlers::advHysteresisEnter);
+      Menu* advHysteresisBuilder = new Menu(String("Hysteresis"), String(""), MenuHandlers::advHysteresisBuilderUp, MenuHandlers::advHysteresisBuilderDown, nullHandler, nullHandler, MenuHandlers::advHysteresisBuilderEnter, MenuHandlers::advHysteresisBuilderDisplay);
 
       menuController.addMenu(homeMenu);
       menuController.addMenu(currentStatus);
@@ -287,6 +315,9 @@ namespace ArduinoFuoco
       menuController.addMenu(zsNumerOfZonesBuilder);
       menuController.addMenu(dtsDayOfWeekBuilder);
       menuController.addMenu(currentStatusBuilder);
+
+      menuController.addMenu(advHysteresis);
+      menuController.addMenu(advHysteresisBuilder);
     }
 
   }
