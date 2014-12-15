@@ -41,6 +41,15 @@ SUITE(TestMenuData)
     CHECK_EQUAL(true, md.getCurrentAFTime()->isPm());
   }
 
+  TEST(currentTemperature)
+  {
+    MenuData md(0, 0);
+    CHECK_EQUAL(60, md.getCurrentTemperature());
+
+    md.setCurrentTemperature(72);
+    CHECK_EQUAL(72, md.getCurrentTemperature());
+  }
+
   TEST(currentMenuId)
   {
     MenuData md(0, 0);

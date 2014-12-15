@@ -27,9 +27,10 @@ namespace ArduinoFuoco
         byte getRelayPin() const;
         bool isOn() const;
         ZoneSetting* getZoneSettings();
-        ZoneSetting* getZoneSetting(const HeatingInterval::Enum &interval);
+        ZoneSetting* getZoneSetting(const HeatingInterval::Enum &interval) const;
         ZoneSetting* getCurrentZoneSetting();
         TimeDefinition* getTimeDefinitions();
+        TimeDefinition* getTimeDefinition(const HeatingInterval::Enum &interval) const;
         HeatingInterval::Enum getCurrentInterval();
 
       private:

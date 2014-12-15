@@ -123,7 +123,7 @@ namespace ArduinoFuoco
       return _zoneSettings;
     }
 
-    ZoneSetting* Zone::getZoneSetting(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval)
+    ZoneSetting* Zone::getZoneSetting(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval) const
     {
       #if (AF_DEBUG == 1)
         Serial.print("ArduinoFuoco::Entity::Zone::getZoneSetting - Looking for interval ");
@@ -158,6 +158,33 @@ namespace ArduinoFuoco
     TimeDefinition* Zone::getTimeDefinitions()
     {
       return _timeDefinitions;
+    }
+
+    TimeDefinition* Zone::getTimeDefinition(const ArduinoFuoco::Enums::HeatingInterval::Enum &interval) const
+    {
+      #if (AF_DEBUG == 1)
+        Serial.print("ArduinoFuoco::Entity::Zone::getTimeDefinition - Looking for interval ");
+        Serial.println(interval, DEC);
+      #endif
+
+      TimeDefinition* td = 0;  // initialize the pointer to "null"
+      for (int i = 0; i < ArduinoFuoco::Enums::HeatingInterval::COUNT; i++)
+      {
+        if (_timeDefinitions[i].getInterval() == interval)
+        {
+          #if (AF_DEBUG == 1)
+            Serial.println("ArduinoFuoco::Entity::Zone::getTimeDefinition - Found an interval match!");
+          #endif
+
+          td = &_timeDefinitions[i];
+          return td;
+        }
+      }
+      #if (AF_DEBUG == 1)
+        Serial.println("ArduinoFuoco::Entity::Zone::getTimeDefinition - Did not find an interval match. returning null.");
+      #endif
+
+      return td;  // return null pointer if no matching setting was found
     }
 
     HeatingInterval::Enum Zone::getCurrentInterval()

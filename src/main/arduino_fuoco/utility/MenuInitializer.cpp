@@ -1,10 +1,13 @@
 #include "MenuInitializer.h"
+#include "AFTime.h"
 #include "Menu.h"
 #include "MenuData.h"
 #include "MenuController.h"
 #include "StringHelper.h"
 #include "Time.h"
+#include "TimeDefinition.h"
 #include "Zone.h"
+#include "ZoneSetting.h"
 
 using namespace ArduinoFuoco::Controllers;
 using namespace ArduinoFuoco::Entity;
@@ -23,6 +26,7 @@ namespace ArduinoFuoco
       {
         data.setCurrentNumber(0);
         data.setCurrentBool(false);
+        data.setCurrentZoneId(1);
       }
 
       byte homeUp(MenuData &data) { return 4; }
@@ -256,7 +260,53 @@ namespace ArduinoFuoco
       // Zone Settings: Menu = 10; Builder01 = 15
       byte zsZoneSettingsUp(MenuData &data) { return 10; }
       byte zsZoneSettingsDown(MenuData &data) { return 10; }
-//      byte zsZoneSettingsEnter(MenuData &data) { return ####; }
+      byte zsZoneSettingsEnter(MenuData &data) { initMenuData(data); return 19; }
+
+      // Zone Settings: Menu = 19; Builder = 20
+      byte zsZonesSelectZoneUp(MenuData &data) {
+        byte currentId = data.getCurrentZoneId();
+        if (currentId == *data.getZoneCount()) { data.setCurrentZoneId(1); }
+        else { data.setCurrentZoneId(currentId++); }
+      }
+      byte zsZonesSelectZoneDown(MenuData &data) {
+        byte currentId = data.getCurrentZoneId();
+        if (currentId == 1) { data.setCurrentZoneId(*data.getZoneCount()); }
+        else { data.setCurrentZoneId(currentId--); }
+      }
+      byte zsZoneSelectZoneEnter(MenuData &data) {
+        data.setCurrentNumber(0);  // ArduinoFuoco::Enums::HeatingInterval::WKDAY_WAKE
+        return 20;
+      }
+      void zsZoneSelectZoneDisplay(const MenuData &data, Menu &menu) {
+        menu.setDisplayLine1(String("Select Zone"));
+        menu.setDisplayLine2(StringHelper::itoa(data.getCurrentZoneId()));
+      }
+
+      // Zone Settings: Menu = 20; Builder = 21
+      byte zsZoneIntervalBuilderUp(MenuData &data) {
+        byte currentNumber = data.getCurrentNumber();
+        if (currentNumber == ArduinoFuoco::Enums::HeatingInterval::COUNT - 1) { data.setCurrentNumber(0); }
+        else { data.setCurrentNumber(currentNumber++); }
+      }
+      byte zsZoneIntervalBuilderDown(MenuData &data) {
+        byte currentNumber = data.getCurrentNumber();
+        if (currentNumber == 0) { data.setCurrentNumber(ArduinoFuoco::Enums::HeatingInterval::COUNT - 1); }
+        else { data.setCurrentNumber(currentNumber--); }
+      }
+      byte zsZoneIntervalBuilderEnter(MenuData &data) {
+        Zone* z = data.getZones()[data.getCurrentZoneId()];
+        ZoneSetting* zsForInterval = z->getZoneSetting((ArduinoFuoco::Enums::HeatingInterval::Enum)data.getCurrentNumber());
+        data.setCurrentTemperature(zsForInterval->getSetTemperature());
+        TimeDefinition* tdForInterval = z->getTimeDefinition((ArduinoFuoco::Enums::HeatingInterval::Enum)data.getCurrentNumber());
+        data.setCurrentAFTime(tdForInterval->getTime());
+        return 21;
+      }
+      void zsZoneIntervalBuilderDisplay(const MenuData &data, Menu &menu) {
+//        menu.setDisplayLine1(String("Z" + StringHelper::itoa(data.getCurrentZoneId()) + " " + ArduinoFuoco::Enums::HeatingInterval::intervalLabel[data.getCurrentNumber()]));
+        menu.setDisplayLine1(String("Zone " + StringHelper::itoa(data.getCurrentZoneId())));
+        menu.setDisplayLine2(ArduinoFuoco::Enums::HeatingInterval::intervalLabel[data.getCurrentNumber()]);
+      }
+
     }
 
     MenuInitializer::MenuInitializer()
@@ -290,7 +340,9 @@ namespace ArduinoFuoco
 
       Menu* zsNumerOfZones = new Menu(String("# of Zones"), String(""), nullHandler, nullHandler, nullHandler, nullHandler, nullHandler);
       Menu* zsNumerOfZonesBuilder = new Menu(String("# of Zones"), String(""), nullHandler, nullHandler, nullHandler, nullHandler, nullHandler);
-      Menu* zsZoneSettings = new Menu(String("Zone Settings"), String(""), MenuHandlers::zsZoneSettingsUp, MenuHandlers::zsZoneSettingsDown, nullHandler, nullHandler, nullHandler);
+      Menu* zsZoneSettings = new Menu(String("Zone Settings"), String(""), MenuHandlers::zsZoneSettingsUp, MenuHandlers::zsZoneSettingsDown, nullHandler, nullHandler, MenuHandlers::zsZoneSettingsEnter);
+      Menu* zsZoneSelectBuilder = new Menu(String("Select Zone"), String(""), MenuHandlers::zsZonesSelectZoneUp, MenuHandlers::zsZonesSelectZoneDown, nullHandler, nullHandler, MenuHandlers::zsZoneSelectZoneEnter, MenuHandlers::zsZoneSelectZoneDisplay);
+      Menu* zsZoneIntervalBuilder = new Menu(String("Select Interval"), String(""), MenuHandlers::zsZoneIntervalBuilderUp, MenuHandlers::zsZoneIntervalBuilderDown, nullHandler, nullHandler, MenuHandlers::zsZoneIntervalBuilderEnter, MenuHandlers::zsZoneIntervalBuilderDisplay);
 
       Menu* advHysteresis = new Menu(String("Hysteresis"), String(""), nullHandler, nullHandler, nullHandler, nullHandler, MenuHandlers::advHysteresisEnter);
       Menu* advHysteresisBuilder = new Menu(String("Hysteresis"), String(""), MenuHandlers::advHysteresisBuilderUp, MenuHandlers::advHysteresisBuilderDown, nullHandler, nullHandler, MenuHandlers::advHysteresisBuilderEnter, MenuHandlers::advHysteresisBuilderDisplay);
@@ -318,6 +370,8 @@ namespace ArduinoFuoco
 
       menuController.addMenu(advHysteresis);
       menuController.addMenu(advHysteresisBuilder);
+      menuController.addMenu(zsZoneSelectBuilder);
+      menuController.addMenu(zsZoneIntervalBuilder);
     }
 
   }
